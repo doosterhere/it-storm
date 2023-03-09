@@ -40,7 +40,7 @@ app-layout {
   background-color: $color-lightblue;
   cursor: pointer;
 
-  &.button-small {
+  &.button_small {
     padding: 10px 0;
 
     font-size: 12px;
@@ -49,4 +49,108 @@ app-layout {
   &:hover {
     background-color: $color-hover;
   }
+}
+
+.mat-mdc-menu-content .mat-mdc-menu-item span.mdc-list-item__primary-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  color: $color-text-primary;
+  letter-spacing: unset;
+  text-align: right;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 10px !important;
+  border: 2px solid $color-lightblue;
+}
+
+.popup {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 727px;
+
+  &.popup-request {
+    padding: 86px 0;
+  }
+
+  &.popup-thank-you {
+    padding: 163px 0;
+  }
+
+  .popup__close {
+    position: absolute;
+    top: 32px;
+    right: 31px;
+
+    cursor: pointer;
+
+    &:hover svg line {
+      stroke: $color-hover;
+    }
+  }
+
+  .popup__title {
+    font-family: 'Lora', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 38px;
+    color: $color-lightblue;
+    text-align: center;
+
+    &.popup__title_tall {
+      padding-top: 8px;
+    }
+  }
+
+  .popup__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 422px;
+  }
+
+  .popup__text {
+    font-weight: 500;
+    font-size: 14px;
+    color: $color-text-secondary;
+  }
+
+  .button {
+    width: 422px;
+
+    &.button_small {
+      margin-top: 20px;
+      width: 73px;
+    }
+  }
+}
+
+input {
+  padding: 17px 20px;
+  box-sizing: border-box;
+  border: 1px solid $color-lightblue;
+  border-radius: 3px;
+
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: $color-lightblue;
+
+  outline: none;
+
+  &::placeholder {
+    color: $color-placeholder;
+  }
+}
+
+.mat-menu-overlay-with-margin-top {
+  margin-top: 10px;
 }

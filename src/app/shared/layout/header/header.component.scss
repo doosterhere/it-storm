@@ -25,15 +25,10 @@
         padding: 0;
 
         li {
-          border-bottom: 1px solid transparent;
           list-style: none;
 
-          &.active {
-            border-bottom: 1px solid $color-lightblue;
-
-            a {
-              color: $color-lightblue;
-            }
+          &.active a {
+            color: $color-lightblue;
           }
 
           a {
@@ -53,7 +48,7 @@
       text-decoration: none;
     }
 
-    .header__login {
+    .header__personal {
       display: flex;
       align-items: center;
       justify-content: flex-end;
