@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { RouterOutlet } from "@angular/router";
+import { RouterLink, RouterOutlet } from "@angular/router";
 
 
 @NgModule({
@@ -14,7 +14,8 @@ import { RouterOutlet } from "@angular/router";
   ],
   imports: [
     CommonModule,
-    RouterOutlet
+    RouterOutlet,
+    RouterLink
   ],
   exports: []
 })

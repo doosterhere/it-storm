@@ -7,9 +7,46 @@ html, body {
   font-family: "Montserrat", sans-serif;
   font-style: normal;
   font-weight: 400;
+  color: $color-text-primary;
+}
+
+app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  > .ng-star-inserted {
+    flex-grow: 1;
+  }
 }
 
 .container {
   max-width: $container-width;
   margin: 0 auto;
+}
+
+.button {
+  padding: 15px 0;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  color: $color-white;
+
+  background-color: $color-lightblue;
+  cursor: pointer;
+
+  &.button-small {
+    padding: 10px 0;
+
+    font-size: 12px;
+  }
+
+  &:hover {
+    background-color: $color-hover;
+  }
 }

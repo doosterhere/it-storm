@@ -1,0 +1,91 @@
+@import "../../../../assets/styles/variables";
+
+.footer {
+  padding: 40px 0 54px;
+
+  font-size: 16px;
+
+  background-color: $color-background;
+
+  .container {
+
+    .footer__top {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+
+      .footer__logo {
+        margin-right: 40px;
+      }
+
+      .footer__menu {
+        nav ul {
+          display: flex;
+          gap: 20px;
+          margin: 0;
+          padding: 0;
+
+          li {
+            list-style: none;
+
+            a {
+              text-decoration: none;
+              cursor: pointer;
+
+              &:hover {
+                color: $color-lightblue;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .footer__bottom {
+      display: flex;
+      align-items: flex-start;
+      gap: 60px;
+
+      .footer__bottom-block {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .footer__bottom-block-title {
+          color: $color-lightblue;
+        }
+
+        &:first-child .footer__bottom-block-content {
+          width: 253px;
+        }
+
+        &:nth-child(2) {
+          .button {
+            width: 153px;
+          }
+        }
+
+        &:nth-child(3) {
+          .footer__bottom-block-content {
+            font-size: 14px;
+
+            a {
+              text-decoration: none;
+              color: $color-text-primary;
+            }
+          }
+        }
+
+        &:last-child .footer__bottom-block-content {
+          display: flex;
+          gap: 12px;
+          padding-top: 5px;
+        }
+      }
+    }
+
+    .footer__rights {
+      color: $color-lightblue;
+    }
+  }
+}
