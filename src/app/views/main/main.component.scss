@@ -1,0 +1,101 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/global";
+
+.main {
+  padding-bottom: 120px;
+
+  .container {
+  }
+
+  .main__carousel {
+    position: relative;
+
+    .main__carousel-arrows {
+      position: absolute;
+      top: calc(50% - 14px);
+      z-index: 2;
+
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+      padding: 0 11px;
+
+      a {
+        cursor: pointer;
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      .arrow-forward {
+        justify-content: flex-end;
+      }
+    }
+
+    .main__carousel-slide {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      padding: 100px 0 0 80px;
+      height: 500px;
+      width: $container-width;
+      box-sizing: border-box;
+
+      background-position: left, right;
+      background-repeat: no-repeat;
+
+      .main__carousel-pre-title {
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: $color-lightblue;
+      }
+
+      .main__carousel-title {
+        max-width: 610px;
+
+        font-family: 'Lora', sans-serif;
+        font-weight: 400;
+        font-size: 50px;
+        line-height: 130%;
+        color: $color-white;
+      }
+
+      .main__carousel-text {
+        margin-top: 20px;
+        max-width: 456px;
+
+        font-size: 24px;
+        line-height: 130%;
+        color: $color-white;
+      }
+
+      .button {
+        margin-top: 50px;
+        width: 163px;
+
+        &.button_custom-margin {
+          margin-top: 40px;
+        }
+      }
+    }
+  }
+
+  .main__services {
+  }
+
+  .main__about {
+  }
+
+  .main__popular {
+  }
+
+  .main__feedbacks {
+  }
+
+  .main__contacts {
+  }
+}

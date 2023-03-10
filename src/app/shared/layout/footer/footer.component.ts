@@ -23,6 +23,7 @@ export class FooterComponent implements OnDestroy {
     phone: ['', [Validators.required]]
   });
   requestServiceSubscription: Subscription | null = null;
+  dialogRefSubscription: Subscription | null = null;
 
   constructor(private dialog: MatDialog,
               private requestService: RequestService,
@@ -32,10 +33,15 @@ export class FooterComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.requestServiceSubscription?.unsubscribe();
+    this.dialogRefSubscription?.unsubscribe();
   }
 
   callMe(): void {
     this.dialogRef = this.dialog.open(this.popupRequest);
+    this.dialogRefSubscription = this.dialogRef?.backdropClick().subscribe(() => {
+      this.requestForm.markAsUntouched();
+      this.requestForm.reset();
+    });
   }
 
   requestCallback(): void {
@@ -49,14 +55,22 @@ export class FooterComponent implements OnDestroy {
       this.requestServiceSubscription = this.requestService.sendRequest(requestData).subscribe((response: DefaultResponseType) => {
         SnackbarErrorUtil.showErrorMessageIfErrorAndThrowError(response, this._snackBar);
 
-        this._snackBar.open(response.message);
         this.popupClose();
+        this.requestForm.reset();
         this.dialogRef = this.dialog.open(this.popupThankYou);
+        this._snackBar.open(response.message);
       });
+    }
+
+    if (this.requestForm.invalid) {
+      this.requestForm.markAllAsTouched();
+      this._snackBar.open('Заполните необходимые поля');
     }
   }
 
   popupClose(): void {
     this.dialogRef?.close();
+    this.requestForm.markAsUntouched();
+    this.requestForm.reset();
   }
 }

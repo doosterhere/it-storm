@@ -3,8 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from "@angular/material/snack-bar";
 import { MAT_MENU_DEFAULT_OPTIONS } from "@angular/material/menu";
+import { CarouselModule } from "ngx-owl-carousel-o";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +25,7 @@ import { MainComponent } from './views/main/main.component';
     MatSnackBarModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    CarouselModule,
     AppRoutingModule
   ],
   providers: [

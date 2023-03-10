@@ -92,38 +92,42 @@
 
 <ng-template #popupRequest>
   <div class="popup popup-request">
-    <div class="popup__close" (click)="popupClose()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="0.935622" y1="0.649994" x2="12.9564" y2="12.6708" stroke="#BEBEBE" stroke-linecap="round"/>
-        <line x1="12.9236" y1="0.629775" x2="0.902769" y2="12.6506" stroke="#BEBEBE" stroke-linecap="round"/>
-      </svg>
-    </div>
+    <div class="popup__container">
+      <div class="popup__close" (click)="popupClose()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0.935622" y1="0.649994" x2="12.9564" y2="12.6708" stroke="#BEBEBE" stroke-linecap="round"/>
+          <line x1="12.9236" y1="0.629775" x2="0.902769" y2="12.6506" stroke="#BEBEBE" stroke-linecap="round"/>
+        </svg>
+      </div>
 
-    <div class="popup__title popup__title_tall">Бесплатная консультация</div>
-    <div class="popup__inputs" [formGroup]="requestForm">
-      <input type="text" placeholder="Ваше имя" formControlName="name"
-             [ngStyle]="{'border-color': requestForm.get('name')?.invalid &&
+      <div class="popup__title">Закажите бесплатную консультацию!</div>
+      <div class="popup__inputs" [formGroup]="requestForm">
+        <input type="text" placeholder="Ваше имя" formControlName="name"
+               [ngStyle]="{'border-color': requestForm.get('name')?.invalid &&
              (requestForm.get('name')?.dirty || requestForm.get('name')?.touched) ? 'red' : ''}">
-      <input type="text" placeholder="Ваш номер телефона" formControlName="phone"
-             [ngStyle]="{'border-color': requestForm.get('phone')?.invalid &&
+        <input type="text" placeholder="Ваш номер телефона" formControlName="phone"
+               [ngStyle]="{'border-color': requestForm.get('phone')?.invalid &&
              (requestForm.get('phone')?.dirty || requestForm.get('phone')?.touched) ? 'red' : ''}">
-    </div>
+      </div>
 
-    <button type="button" class="button" (click)="requestCallback()">Заказать звонок</button>
+      <button type="button" class="button" (click)="requestCallback()">Заказать консультацию</button>
+    </div>
   </div>
 </ng-template>
 
 <ng-template #popupThankYou>
   <div class="popup popup-thank-you">
-    <div class="popup__close" (click)="popupClose()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="0.935622" y1="0.649994" x2="12.9564" y2="12.6708" stroke="#BEBEBE" stroke-linecap="round"/>
-        <line x1="12.9236" y1="0.629775" x2="0.902769" y2="12.6506" stroke="#BEBEBE" stroke-linecap="round"/>
-      </svg>
-    </div>
+    <div class="popup__container">
+      <div class="popup__close" (click)="popupClose()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0.935622" y1="0.649994" x2="12.9564" y2="12.6708" stroke="#BEBEBE" stroke-linecap="round"/>
+          <line x1="12.9236" y1="0.629775" x2="0.902769" y2="12.6506" stroke="#BEBEBE" stroke-linecap="round"/>
+        </svg>
+      </div>
 
-    <div class="popup__title">Спасибо за вашу заявку</div>
-    <div class="popup__text">Мы свяжемся с вами при первой же возможности.</div>
-    <button class="button button_small" (click)="popupClose()">Окей</button>
+      <div class="popup__title">Спасибо за вашу заявку</div>
+      <div class="popup__text">Мы свяжемся с вами при первой же возможности.</div>
+      <button class="button button_small" (click)="popupClose()">Окей</button>
+    </div>
   </div>
 </ng-template>

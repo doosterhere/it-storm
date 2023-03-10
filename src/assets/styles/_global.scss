@@ -69,19 +69,26 @@ app-layout {
 .popup {
   position: relative;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  width: 727px;
+  height: 489px;
+  box-sizing: border-box;
+
+  .popup__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
 
   &.popup-request {
-    padding: 86px 0;
+    padding: 94px 152px 0 152px;
+
+    .popup__container {
+      max-width: 422px;
+    }
   }
 
   &.popup-thank-you {
-    padding: 163px 0;
+    padding: 163px 142px 0 142px;
   }
 
   .popup__close {
@@ -101,12 +108,9 @@ app-layout {
     font-style: normal;
     font-weight: 400;
     font-size: 38px;
+    line-height: 130%;
     color: $color-lightblue;
     text-align: center;
-
-    &.popup__title_tall {
-      padding-top: 8px;
-    }
   }
 
   .popup__inputs {
@@ -153,4 +157,36 @@ input {
 
 .mat-menu-overlay-with-margin-top {
   margin-top: 10px;
+}
+
+.owl-theme .owl-dots {
+  position: absolute;
+  bottom: 15px;
+
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .owl-dot {
+    span {
+      margin: 0 10px;
+      border-radius: 50%;
+      box-sizing: border-box;
+      background: transparent;
+      border: 1px solid $color-white;
+    }
+
+    &.active {
+      span {
+        background: $color-white;
+      }
+    }
+
+    &:hover {
+      span {
+        background: $color-hover;
+      }
+    }
+  }
 }
