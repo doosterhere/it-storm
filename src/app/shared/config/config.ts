@@ -44,21 +44,24 @@ export const Config = {
       title: 'Продвижение в Instagram для вашего бизнеса <span>-15%</span>!',
       text: '',
       image: 'image-01.png',
-      buttonCustomMargin: true
+      buttonCustomMargin: true,
+      category: CategoryName.target
     },
     {
       preTitle: 'Акция',
       title: 'Нужен грамотный <span>копирайтер</span>?',
       text: 'Весь декабрь у нас действует акция на работу копирайтера.',
       image: 'image-02.png',
-      buttonCustomMargin: false
+      buttonCustomMargin: false,
+      category: CategoryName.copyrighting
     },
     {
       preTitle: 'Новость дня',
-      title: '<span>6 место</span> в ТОП-10 SMM-агенств Москвы!',
+      title: '<span>6 место</span> в ТОП-10<br>SMM-агенств Москвы!',
       text: 'Мы благодарим каждого, кто голосовал за нас!',
       image: 'image-03.png',
-      buttonCustomMargin: false
+      buttonCustomMargin: false,
+      category: CategoryName.smm
     },
   ],
   feedbacksCarouselSlidesContent: [

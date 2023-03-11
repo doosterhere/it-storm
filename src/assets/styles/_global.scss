@@ -171,7 +171,23 @@ a:hover ~ svg path,
   }
 }
 
-input, select {
+.mat-mdc-select-value {
+  line-height: 18px;
+}
+
+.mat-mdc-select-arrow-wrapper {
+  display: none !important;
+}
+
+.mat-mdc-option {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: $color-lightblue;
+}
+
+input, select, .mat-mdc-select-value {
   padding: 17px 20px;
   box-sizing: border-box;
   border: 1px solid $color-lightblue;
@@ -188,12 +204,6 @@ input, select {
   &::placeholder {
     color: $color-placeholder;
   }
-}
-
-select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
 }
 
 .owl-theme .owl-dots {

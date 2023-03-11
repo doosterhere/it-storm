@@ -11,6 +11,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule( {
   declarations: [
@@ -19,15 +20,16 @@ import { ModalComponent } from './components/modal/modal.component';
     FooterComponent,
     ModalComponent
   ],
-  imports: [
-    CommonModule,
-    MatMenuModule,
-    MatDialogModule,
-    MatIconModule,
-    RouterOutlet,
-    RouterLink,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        MatMenuModule,
+        MatDialogModule,
+        MatIconModule,
+        RouterOutlet,
+        RouterLink,
+        ReactiveFormsModule,
+        MatSelectModule
+    ],
   exports: [
     ModalComponent
   ]
