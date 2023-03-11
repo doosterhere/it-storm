@@ -1,101 +1,426 @@
 @import "../../../assets/styles/variables";
 @import "../../../assets/styles/global";
+@import "../../../assets/styles/mixins";
 
 .main {
   padding-bottom: 120px;
 
   .container {
-  }
+    .main__banners {
+      margin-bottom: 120px;
 
-  .main__carousel {
-    position: relative;
+      .carousel {
+        .carousel__arrows {
+          .arrow-backward, .arrow-forward {
+            top: calc(50% - 14px);
+            left: 11px;
+          }
 
-    .main__carousel-arrows {
-      position: absolute;
-      top: calc(50% - 14px);
-      z-index: 2;
+          .arrow-forward {
+            left: unset;
+            right: 11px;
+          }
+        }
 
-      display: flex;
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-      padding: 0 11px;
+        .carousel__slide {
+          position: relative;
 
-      a {
-        cursor: pointer;
-        flex-grow: 1;
-        display: flex;
-        justify-content: flex-start;
-      }
+          display: flex;
+          flex-direction: column;
+          padding: 100px 0 0 80px;
+          height: 500px;
+          box-sizing: border-box;
 
-      .arrow-forward {
-        justify-content: flex-end;
-      }
-    }
+          background-position: left, right;
+          background-repeat: no-repeat;
 
-    .main__carousel-slide {
-      position: relative;
+          .carousel__slide-pre-title {
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: $color-lightblue;
+          }
 
-      display: flex;
-      flex-direction: column;
-      padding: 100px 0 0 80px;
-      height: 500px;
-      width: $container-width;
-      box-sizing: border-box;
+          .carousel__slide-title {
+            max-width: 610px;
 
-      background-position: left, right;
-      background-repeat: no-repeat;
+            font-family: 'Lora', sans-serif;
+            font-weight: 400;
+            font-size: 50px;
+            line-height: 130%;
+            color: $color-white;
 
-      .main__carousel-pre-title {
-        font-weight: 600;
-        font-size: 12px;
-        letter-spacing: 0.4em;
-        text-transform: uppercase;
-        color: $color-lightblue;
-      }
+            span {
+              color: $color-lightblue;
+            }
+          }
 
-      .main__carousel-title {
-        max-width: 610px;
+          .carousel__slide-text {
+            margin-top: 20px;
+            max-width: 456px;
 
-        font-family: 'Lora', sans-serif;
-        font-weight: 400;
-        font-size: 50px;
-        line-height: 130%;
-        color: $color-white;
-      }
+            font-size: 24px;
+            line-height: 130%;
+            color: $color-white;
+          }
 
-      .main__carousel-text {
-        margin-top: 20px;
-        max-width: 456px;
+          .button {
+            margin-top: 50px;
+            width: 163px;
 
-        font-size: 24px;
-        line-height: 130%;
-        color: $color-white;
-      }
-
-      .button {
-        margin-top: 50px;
-        width: 163px;
-
-        &.button_custom-margin {
-          margin-top: 40px;
+            &.button_custom-margin {
+              margin-top: 40px;
+            }
+          }
         }
       }
     }
-  }
 
-  .main__services {
-  }
+    .main__services {
+      margin-bottom: 120px;
 
-  .main__about {
-  }
+      .main__services-title {
+        margin-bottom: 40px;
 
-  .main__popular {
-  }
+        @include title-lora-38;
+      }
 
-  .main__feedbacks {
-  }
+      .main___services-cards {
+        display: flex;
+        gap: 25px;
 
-  .main__contacts {
+        .main__service-card {
+          .main__service-card-image {
+            margin-bottom: 15px;
+          }
+
+          .main__service-card-title {
+            margin-bottom: 10px;
+
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 20px;
+            color: $color-lightblue;
+          }
+
+          .main__service-card-text {
+            margin-bottom: 15px;
+            height: 90px;
+
+            font-size: 14px;
+          }
+
+          .main__service-card-action {
+            display: flex;
+            align-items: center;
+            gap: 21px;
+
+            .main__service-card-price {
+              width: 106px;
+
+              font-family: 'Montserrat', sans-serif;
+              font-weight: 600;
+              font-size: 20px;
+              color: $color-lightblue;
+            }
+
+            .button {
+              width: 163px;
+            }
+          }
+        }
+      }
+    }
+
+    .main__about {
+      margin-bottom: 120px;
+      display: flex;
+      justify-content: space-between;
+      gap: 68px;
+
+      .main__about-info {
+        .main__about-title {
+          margin-bottom: 20px;
+
+          @include title-lora-38;
+        }
+
+        .main__about_text {
+          margin-bottom: 40px;
+          max-width: 633px;
+
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 130%;
+          color: $color-text-secondary;
+        }
+
+        .main__about-advantages-title {
+          margin-bottom: 20px;
+
+          font-family: 'Lora', sans-serif;
+          font-weight: 400;
+          font-size: 26px;
+          color: $color-lightblue;
+        }
+
+        .main__about-advantages-cards {
+          display: grid;
+          grid-template: 1fr 1fr / 1fr 1fr;
+          grid-gap: 20px 71px;
+
+          .main__about-advantages-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+
+            .main__about-advantages-card-number {
+              position: relative;
+
+              display: flex;
+              flex-grow: 1;
+              justify-content: center;
+              align-items: center;
+              width: 40px;
+              height: 65px;
+
+              font-family: 'Lora', sans-serif;
+              font-weight: 500;
+              font-size: 50px;
+              color: $color-lightblue;
+
+              &:after {
+                position: absolute;
+                right: 0;
+                top: 20px;
+                z-index: -1;
+
+                content: '';
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+
+                background-color: $color-background;
+              }
+            }
+
+            .main__about-advantages-card-text {
+              max-width: 254px;
+
+              font-weight: 500;
+              font-size: 14px;
+              color: $color-text-secondary;
+            }
+          }
+        }
+      }
+    }
+
+    .main__popular {
+      margin-bottom: 120px;
+
+      .main__popular-title {
+        margin-bottom: 40px;
+
+        @include title-lora-38;
+      }
+
+      .main__popular-cards {
+        margin-bottom: 40px;
+        display: flex;
+        gap: 24px;
+
+        .main__popular-card {
+          position: relative;
+
+          display: flex;
+          flex-direction: column;
+          height: 571px;
+
+          .main__popular-card-category {
+            position: absolute;
+            top: 10px;
+            right: 9px;
+
+            padding: 10px 18px;
+            border-radius: 5px;
+
+            font-size: 11px;
+            color: $color-lightblue;
+
+            text-align: center;
+            background-color: $color-white;
+          }
+
+          .main__popular-card-image {
+            margin-bottom: 15px;
+            width: 291px;
+            height: 291px;
+            border-radius: 5px;
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+
+          .main__popular-card-title {
+            margin-bottom: 20px;
+
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 130%;
+            color: $color-lightblue;
+          }
+
+          .main__popular-card-text {
+            flex-grow: 1;
+
+            font-size: 14px;
+            line-height: 130%;
+          }
+
+          .main__popular-card-link {
+            justify-self: flex-end;
+
+            a {
+              font-size: 16px;
+              color: $color-lightblue;
+              text-decoration: underline;
+              text-underline-offset: 2px;
+
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .main__popular-link {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 14px;
+
+        a {
+          font-weight: 500;
+          font-size: 20px;
+          color: $color-lightblue;
+          text-decoration: none;
+
+          cursor: pointer;
+        }
+      }
+    }
+
+    .main__feedbacks {
+      margin-bottom: 120px;
+
+      .main__feedbacks-title {
+        margin-bottom: 20px;
+
+        @include title-lora-38;
+      }
+
+      .carousel {
+        .carousel__arrows {
+          .arrow-backward, .arrow-forward {
+            top: calc(50% - 15px);
+            left: -25px;
+          }
+
+          .arrow-forward {
+            left: unset;
+            right: -25px;
+
+            img {
+              rotate: 180deg;
+            }
+          }
+        }
+
+        .carousel__slide {
+          padding: 30px;
+          width: 396px;
+          height: 267px;
+          box-sizing: border-box;
+          border-radius: 5px;
+          border: 2px solid $color-lightblue;
+
+          .carousel__slide-personal {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 26px;
+
+            .carousel__slide-personal-image {
+              width: 60px;
+              height: 60px;
+              border-radius: 50%;
+
+              background: center no-repeat;
+              background-size: cover;
+            }
+
+            .carousel__slide-personal-name {
+              font-weight: 600;
+              font-size: 18px;
+              color: $color-lightblue;
+            }
+          }
+
+          .carousel__slide-text {
+            font-size: 16px;
+            line-height: 140%;
+          }
+        }
+      }
+    }
+
+    .main__contacts {
+      display: flex;
+      gap: 26px;
+
+      .main__contacts-map {
+        iframe {
+          width: 607px;
+          border-radius: 5px;
+        }
+      }
+
+      .main__contacts-info {
+        flex-grow: 1;
+
+        .main__contacts-info-title {
+          margin-bottom: 20px;
+
+          @include title-lora-38;
+        }
+
+        .main__contacts-info-subtitle {
+          margin-bottom: 10px;
+
+          font-weight: 500;
+          font-size: 20px;
+          color: $color-lightblue;
+        }
+
+        .main__contacts-info-text {
+          margin-bottom: 20px;
+          max-width: 501px;
+
+          font-size: 14px;
+
+          a {
+            color: $color-text-primary;
+            text-decoration: none;
+          }
+        }
+
+        .main__contacts-info-icons {
+          display: flex;
+          gap: 20px;
+        }
+      }
+    }
   }
 }

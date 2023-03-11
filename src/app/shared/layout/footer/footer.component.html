@@ -41,10 +41,10 @@
         <div class="footer__bottom-block-title">Телефон</div>
 
         <div class="footer__bottom-block-content">
-          +7 (499) 343-13-34
+          <a href="tel: +74993431334">+7 (499) 343-13-34</a>
         </div>
 
-        <button type="button" class="button button_small" (click)="callMe()">Перезвоните мне</button>
+        <button type="button" class="button button_small" (click)="openModal()">Перезвоните мне</button>
       </div>
 
       <div class="footer__bottom-block">
@@ -58,7 +58,7 @@
       <div class="footer__bottom-block">
         <div class="footer__bottom-block-title">Мы в социальных сетях:</div>
 
-        <div class="footer__bottom-block-content social">
+        <div class="footer__bottom-block-content">
           <a href="https://vk.ru">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -89,45 +89,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #popupRequest>
-  <div class="popup popup-request">
-    <div class="popup__container">
-      <div class="popup__close" (click)="popupClose()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="0.935622" y1="0.649994" x2="12.9564" y2="12.6708" stroke="#BEBEBE" stroke-linecap="round"/>
-          <line x1="12.9236" y1="0.629775" x2="0.902769" y2="12.6506" stroke="#BEBEBE" stroke-linecap="round"/>
-        </svg>
-      </div>
-
-      <div class="popup__title">Закажите бесплатную консультацию!</div>
-      <div class="popup__inputs" [formGroup]="requestForm">
-        <input type="text" placeholder="Ваше имя" formControlName="name"
-               [ngStyle]="{'border-color': requestForm.get('name')?.invalid &&
-             (requestForm.get('name')?.dirty || requestForm.get('name')?.touched) ? 'red' : ''}">
-        <input type="text" placeholder="Ваш номер телефона" formControlName="phone"
-               [ngStyle]="{'border-color': requestForm.get('phone')?.invalid &&
-             (requestForm.get('phone')?.dirty || requestForm.get('phone')?.touched) ? 'red' : ''}">
-      </div>
-
-      <button type="button" class="button" (click)="requestCallback()">Заказать консультацию</button>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #popupThankYou>
-  <div class="popup popup-thank-you">
-    <div class="popup__container">
-      <div class="popup__close" (click)="popupClose()">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="0.935622" y1="0.649994" x2="12.9564" y2="12.6708" stroke="#BEBEBE" stroke-linecap="round"/>
-          <line x1="12.9236" y1="0.629775" x2="0.902769" y2="12.6506" stroke="#BEBEBE" stroke-linecap="round"/>
-        </svg>
-      </div>
-
-      <div class="popup__title">Спасибо за вашу заявку</div>
-      <div class="popup__text">Мы свяжемся с вами при первой же возможности.</div>
-      <button class="button button_small" (click)="popupClose()">Окей</button>
-    </div>
-  </div>
-</ng-template>

@@ -10,12 +10,14 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { ModalComponent } from './components/modal/modal.component';
 
-@NgModule({
+@NgModule( {
   declarations: [
     LayoutComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,9 @@ import { FooterComponent } from './layout/footer/footer.component';
     RouterLink,
     ReactiveFormsModule
   ],
-  exports: []
-})
+  exports: [
+    ModalComponent
+  ]
+} )
 export class SharedModule {
 }

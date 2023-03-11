@@ -1,0 +1,46 @@
+<div class="popup popup-request" [class.is-light]="isLight" *ngIf="!isRequestSubmitted">
+  <div class="popup__container">
+    <div class="popup__close" (click)="closeModal()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0.935622" y1="0.649994" x2="12.9564" y2="12.6708" stroke="#BEBEBE" stroke-linecap="round"/>
+        <line x1="12.9236" y1="0.629775" x2="0.902769" y2="12.6506" stroke="#BEBEBE" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="popup__title">{{ isLight ? 'Закажите бесплатную консультацию!' : 'Заявка на услугу'}}</div>
+    <div class="popup__inputs" [formGroup]="requestForm">
+      <select formControlName="service" *ngIf="!isLight"
+              [ngStyle]="{'border-color': requestForm.get('service')?.invalid &&
+              (requestForm.get('service')?.dirty || requestForm.get('service')?.touched) ? 'red' : ''}">
+        <option *ngFor="let category of categories" [ngValue]="category.name">{{ category.name }}</option>
+      </select>
+      <input type="text" placeholder="Ваше имя" formControlName="name"
+             [ngStyle]="{'border-color': requestForm.get('name')?.invalid &&
+             (requestForm.get('name')?.dirty || requestForm.get('name')?.touched) ? 'red' : ''}">
+      <input type="text" placeholder="Ваш номер телефона" formControlName="phone"
+             [ngStyle]="{'border-color': requestForm.get('phone')?.invalid &&
+             (requestForm.get('phone')?.dirty || requestForm.get('phone')?.touched) ? 'red' : ''}">
+    </div>
+
+    <button type="button" class="button" (click)="requestCallback()">Заказать консультацию</button>
+
+    <div class="popup__alert-string" *ngIf="requestError">
+      Произошла ошибка при отправке формы, попробуйте еще раз
+    </div>
+  </div>
+</div>
+
+<div class="popup popup-thank-you" *ngIf="isRequestSubmitted">
+  <div class="popup__container">
+    <div class="popup__close" (click)="closeModal()">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0.935622" y1="0.649994" x2="12.9564" y2="12.6708" stroke="#BEBEBE" stroke-linecap="round"/>
+        <line x1="12.9236" y1="0.629775" x2="0.902769" y2="12.6506" stroke="#BEBEBE" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="popup__title">Спасибо за вашу заявку</div>
+    <div class="popup__text">Мы свяжемся с вами при первой же возможности.</div>
+    <button class="button button_small" (click)="closeModal()">Окей</button>
+  </div>
+</div>

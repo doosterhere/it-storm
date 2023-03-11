@@ -9,14 +9,14 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
-      {path: '', component: MainComponent},
+      { path: '', component: MainComponent },
     ]
   }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
+@NgModule( {
+  imports: [RouterModule.forRoot( routes )],
   exports: [RouterModule]
-})
+} )
 export class AppRoutingModule {
 }

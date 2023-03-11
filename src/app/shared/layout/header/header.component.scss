@@ -12,6 +12,7 @@
 
     .header__logo {
       margin-right: 100px;
+
       cursor: pointer;
     }
 
@@ -32,12 +33,10 @@
           }
 
           a {
+            color: $color-text-primary;
             text-decoration: none;
-            cursor: pointer;
 
-            &:hover {
-              color: $color-lightblue;
-            }
+            cursor: pointer;
           }
         }
       }
@@ -56,6 +55,7 @@
 
       span {
         margin-left: 7px;
+
         cursor: pointer;
       }
     }

@@ -1,43 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Subscription } from "rxjs";
 
 import { OwlOptions } from "ngx-owl-carousel-o";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatDialog } from "@angular/material/dialog";
 
-@Component({
+import { Config } from "../../shared/config/config";
+import { ArticleType } from "../../../types/article.type";
+import { ArticleService } from "../../shared/services/article.service";
+import { DefaultResponseType } from "../../../types/default-response.type";
+import { SnackbarErrorUtil } from "../../shared/utils/snackbar-error.util";
+import { environment } from "../../../environments/environment";
+import { ModalComponent } from "../../shared/components/modal/modal.component";
+import { ModalService } from "../../shared/services/modal.service";
+import { CategoryName } from "../../../types/categories.type";
+
+@Component( {
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
-})
-export class MainComponent {
-  carouselOptions: OwlOptions = {
-    loop: true,
-    mouseDrag: true,
-    touchDrag: false,
-    pullDrag: false,
-    dots: true,
-    navSpeed: 700,
-    navText: ['', ''],
-    items: 1,
-    nav: false
-  };
-  readonly slidesContent = [
-    {
-      preTitle: 'Предложение месяца',
-      title: 'Продвижение в Instagram для вашего бизнеса -15%!',
-      text: '',
-      buttonCustomMargin: true
-    },
-    {
-      preTitle: 'Акция',
-      title: 'Нужен грамотный копирайтер?',
-      text: 'Весь декабрь у нас действует акция на работу копирайтера.',
-      buttonCustomMargin: false
-    },
-    {
-      preTitle: 'Новость дня',
-      title: '6 место в ТОП-10 SMM-агенств Москвы!',
-      text: 'Мы благодарим каждого, кто голосовал за нас!',
-      buttonCustomMargin: false
-    },
-  ];
+  styleUrls: ['./main.component.scss'],
+  encapsulation: ViewEncapsulation.None
+} )
+export class MainComponent implements OnInit, OnDestroy {
+  bannerCarouselOptions: OwlOptions = Config.bannersCarouselOptions;
+  feedbacksCarouselOptions: OwlOptions = Config.feedbacksCarouselOptions;
+  bannerSlidesContent = Config.bannersCarouselSlidesContent;
+  feedbacksSlidesContent = Config.feedbacksCarouselSlidesContent;
+  servicesContent = Config.servicesCardsContent;
+  serverStaticPath = environment.serverStaticPath;
 
+  articles: ArticleType[];
+  articleServiceSubscription: Subscription | null;
+  category = CategoryName;
+
+  constructor(private articleService: ArticleService,
+              private _snackBar: MatSnackBar,
+              private modalService: ModalService,
+              public matDialog: MatDialog) {
+    this.articles = [];
+    this.articleServiceSubscription = null;
+  }
+
+  ngOnInit(): void {
+    this.articleServiceSubscription = this.articleService.getPopular()
+      .subscribe( (data: DefaultResponseType | ArticleType[]) => {
+        SnackbarErrorUtil.showErrorMessageIfErrorAndThrowError( data as DefaultResponseType, this._snackBar );
+
+        this.articles = data as ArticleType[];
+      } );
+  }
+
+  ngOnDestroy(): void {
+    this.articleServiceSubscription?.unsubscribe();
+  }
+
+  openModal(category: CategoryName): void {
+    this.modalService.setIsLight( false );
+    this.modalService.setCategory( category );
+    const modalDialog = this.matDialog.open( ModalComponent );
+  }
 }

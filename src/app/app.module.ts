@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from "./shared/shared.module";
 import { MainComponent } from './views/main/main.component';
 
-@NgModule({
+@NgModule( {
   declarations: [
     AppComponent,
     MainComponent
@@ -29,10 +29,10 @@ import { MainComponent } from './views/main/main.component';
     AppRoutingModule
   ],
   providers: [
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}},
-    {provide: MAT_MENU_DEFAULT_OPTIONS, useValue: {overlayPanelClass: 'mat-menu-overlay-with-margin-top'}}
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
+    { provide: MAT_MENU_DEFAULT_OPTIONS, useValue: { overlayPanelClass: 'mat-menu-overlay-with-margin-top' } }
   ],
   bootstrap: [AppComponent]
-})
+} )
 export class AppModule {
 }
