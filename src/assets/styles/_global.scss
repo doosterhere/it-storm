@@ -62,6 +62,11 @@ a:hover ~ svg path,
   &:hover {
     background-color: $color-hover;
   }
+
+  &:disabled {
+    background-color: $color-lightgray;
+    cursor: not-allowed;
+  }
 }
 
 .mat-mdc-menu-content .mat-mdc-menu-item span.mdc-list-item__primary-text {
@@ -187,10 +192,10 @@ a:hover ~ svg path,
   color: $color-lightblue;
 }
 
-input, select, .mat-mdc-select-value {
+.input, .mat-mdc-select.custom-mat-select .mat-mdc-select-value, {
   padding: 17px 20px;
   box-sizing: border-box;
-  border: 1px solid $color-lightblue;
+  border: 2px solid $color-lightblue;
   border-radius: 3px;
 
   font-family: 'Montserrat', sans-serif;
@@ -200,6 +205,10 @@ input, select, .mat-mdc-select-value {
   color: $color-lightblue;
 
   outline: none;
+
+  &:hover, &:focus {
+    border-color: $color-hover;
+  }
 
   &::placeholder {
     color: $color-placeholder;

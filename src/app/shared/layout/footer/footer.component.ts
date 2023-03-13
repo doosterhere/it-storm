@@ -18,6 +18,6 @@ export class FooterComponent {
 
   openModal(): void {
     this.modalService.setIsLight( true );
-    const modalDialog = this.matDialog.open( ModalComponent );
+    this.matDialog.open( ModalComponent );
   }
 }

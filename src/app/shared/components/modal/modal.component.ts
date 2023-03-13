@@ -24,7 +24,6 @@ export class ModalComponent implements OnInit, OnDestroy {
   isRequestSubmitted: boolean;
   requestError: boolean;
   requestForm: FormGroup;
-  thankYouDialogRef: MatDialogRef<any> | null;
   requestServiceSubscription: Subscription | null;
   categoryServiceSubscription: Subscription | null;
   categories: CategoriesType[] | null;
@@ -39,7 +38,6 @@ export class ModalComponent implements OnInit, OnDestroy {
               private modalService: ModalService) {
     this.requestServiceSubscription = null;
     this.categoryServiceSubscription = null;
-    this.thankYouDialogRef = null;
     this.categories = null;
     this.isLight = this.modalService.getIsLight();
     this.isRequestSubmitted = false;

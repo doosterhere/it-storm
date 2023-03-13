@@ -57,6 +57,6 @@ export class MainComponent implements OnInit, OnDestroy {
   openModal(category: CategoryName): void {
     this.modalService.setIsLight( false );
     this.modalService.setCategory( category );
-    const modalDialog = this.matDialog.open( ModalComponent );
+    this.matDialog.open( ModalComponent );
   }
 }

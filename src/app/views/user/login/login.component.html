@@ -1,0 +1,37 @@
+<div class="login">
+  <div class="container auth__container">
+    <div class="auth__info">
+      <div class="auth__info-container">
+        <div class="auth__title">Войти в личный кабинет</div>
+
+        <div class="auth__form" [formGroup]="authForm">
+          <div class="auth__form-input">
+            <input class="input" type="email" placeholder="Электронная почта" formControlName="email"
+                   [ngStyle]="{'border-color': authForm.get('email')?.invalid &&
+                   (authForm.get('email')?.dirty || authForm.get('email')?.touched) ? 'red' : ''}">
+          </div>
+
+          <div class="auth__form-input">
+            <input class="input" type="password" placeholder="Пароль" formControlName="password"
+                   [ngStyle]="{'border-color': authForm.get('password')?.invalid &&
+                   (authForm.get('password')?.dirty || authForm.get('password')?.touched) ? 'red' : ''}">
+          </div>
+
+          <div class="auth__form-checkbox">
+            <input type="checkbox" formControlName="checkbox">
+            <span>Запомнить меня</span>
+          </div>
+
+          <button type="button" class="button" [disabled]="authForm.invalid" (click)="login()">Войти</button>
+
+          <div class="auth__link">
+            <span>Нет аккаунта?</span>
+            <a [routerLink]="'/signup'">Пройдите регистрацию</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth__image login__image"></div>
+  </div>
+</div>

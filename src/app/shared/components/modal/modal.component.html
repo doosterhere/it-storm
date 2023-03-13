@@ -9,17 +9,17 @@
 
     <div class="popup__title">{{ isLight ? 'Закажите бесплатную консультацию!' : 'Заявка на услугу'}}</div>
     <div class="popup__inputs" [formGroup]="requestForm">
-      <mat-select formControlName="service" *ngIf="!isLight"
+      <mat-select class="custom-mat-select" formControlName="service" *ngIf="!isLight"
                   [ngStyle]="{'border-color': requestForm.get('service')?.invalid &&
                   (requestForm.get('service')?.dirty || requestForm.get('service')?.touched) ? 'red' : ''}">
         <mat-option *ngFor="let category of categories" [value]="category.name">
           {{ category.name }}
         </mat-option>
       </mat-select>
-      <input type="text" placeholder="Ваше имя" formControlName="name"
+      <input class="input" type="text" placeholder="Ваше имя" formControlName="name"
              [ngStyle]="{'border-color': requestForm.get('name')?.invalid &&
              (requestForm.get('name')?.dirty || requestForm.get('name')?.touched) ? 'red' : ''}">
-      <input type="text" placeholder="Ваш номер телефона" formControlName="phone"
+      <input class="input" type="text" placeholder="Ваш номер телефона" formControlName="phone"
              [ngStyle]="{'border-color': requestForm.get('phone')?.invalid &&
              (requestForm.get('phone')?.dirty || requestForm.get('phone')?.touched) ? 'red' : ''}">
     </div>

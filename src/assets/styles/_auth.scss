@@ -1,0 +1,90 @@
+@import "variables";
+@import "mixins";
+
+.auth__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .auth__info {
+    .auth__info-container {
+      margin: 120px 0;
+
+      .auth__title {
+        margin-bottom: 40px;
+
+        font-family: 'Lora', sans-serif;
+        font-size: 36px;
+        color: $color-lightblue;
+      }
+
+      .auth__form {
+        max-width: 422px;
+
+        .auth__form-input {
+          margin-bottom: 5px;
+
+          input {
+            width: 100%;
+          }
+
+          &:last-child {
+            margin-bottom: 10px;
+          }
+        }
+
+        .auth__form-checkbox {
+          margin-bottom: 40px;
+          display: flex;
+          align-items: baseline;
+          gap: 9px;
+
+          span {
+            font-size: 14px;
+            line-height: 130%;
+
+            a {
+              font-family: 'Montserrat', sans-serif;
+              font-style: normal;
+              font-weight: 400;
+              font-size: 14px;
+              line-height: 130%;
+              color: $color-lightblue;
+            }
+          }
+        }
+
+        .button {
+          margin-bottom: 10px;
+          width: 100%;
+        }
+
+        .auth__link {
+          span {
+            margin-right: 7px;
+
+            font-size: 14px;
+          }
+
+          a {
+            font-family: 'Montserrat', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 130%;
+            color: $color-lightblue;
+          }
+
+        }
+      }
+    }
+  }
+
+  .auth__image {
+    width: 607px;
+    height: 390px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}

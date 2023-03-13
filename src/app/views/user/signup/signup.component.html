@@ -1,0 +1,54 @@
+<div class="signup">
+  <div class="container auth__container">
+    <div class="auth__info">
+      <div class="auth__info-container">
+        <div class="auth__title">Регистрация на сайте</div>
+
+        <div class="auth__form" [formGroup]="authForm">
+          <div class="auth__form-input">
+            <input class="input" type="text" placeholder="Ваше имя" formControlName="name"
+                   [ngStyle]="{'border-color': authForm.get('name')?.invalid &&
+                   (authForm.get('name')?.dirty || authForm.get('name')?.touched) ? 'red' : ''}">
+          </div>
+
+          <div class="auth__form-input">
+            <input class="input" type="email" placeholder="Электронная почта" formControlName="email"
+                   autocomplete="new-email"
+                   [ngStyle]="{'border-color': authForm.get('email')?.invalid &&
+                   (authForm.get('email')?.dirty || authForm.get('email')?.touched) ? 'red' : ''}">
+          </div>
+
+          <div class="auth__form-input">
+            <input class="input" type="password" placeholder="Пароль" formControlName="password"
+                   autocomplete="new-password"
+                   [ngStyle]="{'border-color': authForm.get('password')?.invalid &&
+                   (authForm.get('email')?.dirty || authForm.get('password')?.touched) ? 'red' : ''}">
+          </div>
+
+          <div class="auth__form-input">
+            <input class="input" type="password" placeholder="Повторите пароль" formControlName="repeatPassword"
+                   [ngStyle]="{'border-color': authForm.get('repeatPassword')?.invalid &&
+                   (authForm.get('repeatPassword')?.dirty || authForm.get('repeatPassword')?.touched) ? 'red' : ''}">
+          </div>
+
+          <div class="auth__form-checkbox">
+            <input type="checkbox" formControlName="checkbox">
+            <span>
+            Я принимаю <a href="#">условия пользовательского соглашения</a>
+            и даю <a href="#">согласие на обработку персональных данных</a>.
+          </span>
+          </div>
+
+          <button type="button" class="button" [disabled]="authForm.invalid" (click)="signup()">Зарегистрироваться</button>
+
+          <div class="auth__link">
+            <span>Уже есть аккаунт?</span>
+            <a [routerLink]="'/login'">Войдите</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="auth__image signup__image"></div>
+  </div>
+</div>
