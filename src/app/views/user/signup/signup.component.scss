@@ -2,7 +2,15 @@
 
 .signup {
   .container {
-     .signup__image {
+    mat-icon.password-icon {
+      top: 138px;
+
+      &.confirm {
+        top: 199px;
+      }
+    }
+
+    .signup__image {
       background-image: url("../../../../assets/images/pages/signup/Image.png");
     }
   }

@@ -2,6 +2,10 @@
 
 .login {
   .container {
+    mat-icon.password-icon {
+      top: 77px;
+    }
+
     .login__image {
       background-image: url("../../../../assets/images/pages/login/Image.png");
     }

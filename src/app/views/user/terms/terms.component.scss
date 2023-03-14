@@ -1,0 +1,26 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+.terms {
+  padding: 40px 0;
+
+  .container {
+    .term {
+      margin-bottom: 40px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .terms__title {
+        @include title-lora-38;
+        margin-bottom: 20px;
+      }
+
+      .terms__text {
+        font-size: 16px;
+        color: $color-text-primary;
+      }
+    }
+  }
+}

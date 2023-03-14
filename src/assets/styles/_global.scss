@@ -202,7 +202,7 @@ a:hover ~ svg path,
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  color: $color-lightblue;
+  color: $color-text-primary;
 
   outline: none;
 
@@ -214,6 +214,11 @@ a:hover ~ svg path,
     color: $color-placeholder;
   }
 }
+
+input[type='checkbox'] {
+  cursor: pointer;
+}
+
 
 .owl-theme .owl-dots {
   position: absolute;

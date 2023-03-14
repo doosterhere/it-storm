@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
 
 import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -9,7 +10,6 @@ import { AuthService } from "../../../core/auth/auth.service";
 import { DefaultResponseType } from "../../../../types/default-response.type";
 import { LoginResponseType } from "../../../../types/login-response.type";
 import { SnackbarErrorUtil } from "../../../shared/utils/snackbar-error.util";
-import { Subscription } from "rxjs";
 
 @Component( {
   selector: 'app-login',
@@ -17,6 +17,7 @@ import { Subscription } from "rxjs";
   styleUrls: ['./login.component.scss']
 } )
 export class LoginComponent implements OnDestroy {
+  passwordIsVisible: boolean;
   authForm: FormGroup;
   authServiceSubscription: Subscription | null;
 
@@ -24,6 +25,7 @@ export class LoginComponent implements OnDestroy {
               private _snackBar: MatSnackBar,
               private authService: AuthService,
               private router: Router) {
+    this.passwordIsVisible = false;
     this.authServiceSubscription = null;
     this.authForm = this.fb.group( {
       email: ['', [Validators.email, Validators.required]],
@@ -65,5 +67,9 @@ export class LoginComponent implements OnDestroy {
             }
           } );
     }
+  }
+
+  changePasswordVisibility(): void {
+    this.passwordIsVisible = !this.passwordIsVisible;
   }
 }

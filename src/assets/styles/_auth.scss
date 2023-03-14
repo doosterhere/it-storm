@@ -19,7 +19,23 @@
       }
 
       .auth__form {
+        position: relative;
+
         max-width: 422px;
+
+        mat-icon.password-icon {
+          position: absolute;
+          z-index: 2;
+          right: 15px;
+
+          color: $color-lightblue;
+
+          cursor: pointer;
+
+          &:hover {
+            color: $color-hover;
+          }
+        }
 
         .auth__form-input {
           margin-bottom: 5px;
