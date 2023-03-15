@@ -20,7 +20,7 @@ export class SignupComponent implements OnDestroy {
   passwordIsVisible: boolean;
   confirmPasswordIsVisible: boolean;
   readonly nameValidatorPattern = /^([А-Я][а-яё]{1,23})(\s[А-Я][а-яё]{0,23})*$/;
-  readonly emailValidatorPattern = /^[^$!#^\-_*'%?]*[a-z0-9\-_\.]{1,64}@[a-z0-9\.\-]{1,253}\.[a-z]{2,}$/i;
+  readonly emailValidatorPattern = /^[^$!#^\-_*'%?]*[a-z0-9\-_.]{1,64}@[a-z0-9.-]{1,253}\.[a-z]{2,}$/i;
   readonly passwordValidatorPattern = /^(?=.*\d)(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
   authForm: FormGroup;
   authServiceSignupSubscription: Subscription | null;

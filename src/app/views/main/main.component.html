@@ -51,17 +51,8 @@
     <section class="main__services">
       <div class="main__services-title">Услуги, которые мы предлагаем</div>
       <div class="main___services-cards">
-        <div class="main__service-card" *ngFor="let service of servicesContent">
-          <div class="main__service-card-image">
-            <img src="../../../../assets/images/pages/main/{{ service.image }}" alt="service">
-          </div>
-          <div class="main__service-card-title">{{ service.title }}</div>
-          <div class="main__service-card-text">{{ service.text }}</div>
-          <div class="main__service-card-action">
-            <div class="main__service-card-price">От {{ service.price }} ₽</div>
-            <button type="button" class="button" (click)="openModal(service.category)">Заказать</button>
-          </div>
-        </div>
+        <app-card [article]="serviceContent" [isServiceCard]="true"
+                  *ngFor="let serviceContent of servicesContent"></app-card>
       </div>
     </section>
 
@@ -119,16 +110,7 @@
     <section class="main__popular">
       <div class="main__popular-title">Популярные статьи из блога</div>
       <div class="main__popular-cards">
-        <div class="main__popular-card" *ngFor="let article of articles">
-          <div class="main__popular-card-category">{{ article.category }}</div>
-          <div class="main__popular-card-image"
-               style="background-image: url('{{ serverStaticPath + article.image }}')"></div>
-          <div class="main__popular-card-title">{{ article.title }}</div>
-          <div class="main__popular-card-text">{{ article.description }}</div>
-          <div class="main__popular-card-link">
-            <a>Читать дальше</a>
-          </div>
-        </div>
+        <app-card [article]="article" *ngFor="let article of articles"></app-card>
       </div>
       <div class="main__popular-link">
         <a>Перейти в блог</a>

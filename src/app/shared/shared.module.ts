@@ -13,6 +13,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ConfirmPasswordDirective } from './directives/confirm-password.directive';
+import { CardComponent } from './components/card/card.component';
 
 @NgModule( {
   declarations: [
@@ -20,7 +21,8 @@ import { ConfirmPasswordDirective } from './directives/confirm-password.directiv
     HeaderComponent,
     FooterComponent,
     ModalComponent,
-    ConfirmPasswordDirective
+    ConfirmPasswordDirective,
+    CardComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { ConfirmPasswordDirective } from './directives/confirm-password.directiv
   ],
   exports: [
     ModalComponent,
-    ConfirmPasswordDirective
+    ConfirmPasswordDirective,
+    CardComponent
   ]
 } )
 export class SharedModule {

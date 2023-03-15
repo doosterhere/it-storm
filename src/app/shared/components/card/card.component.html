@@ -1,0 +1,21 @@
+<div class="card" [class.service-card]="isServiceCard">
+  <div class="card-category" *ngIf="!isServiceCard">{{ article.category }}</div>
+
+  <div class="card-image" *ngIf="isServiceCard"
+       style="background-image: url('../../../../assets/images/pages/main/{{ article.image }}')"></div>
+  <div class="card-image" *ngIf="!isServiceCard"
+       style="background-image: url('{{ serverStaticPath + article.image }}')"></div>
+
+  <div class="card-title">{{ article.title }}</div>
+
+  <div class="card-text">{{ article.description }}</div>
+
+  <div class="card-action" *ngIf="isServiceCard">
+    <div class="card-price">От {{ article.price }} ₽</div>
+    <button type="button" class="button" (click)="openModal(article.category)">Заказать</button>
+  </div>
+
+  <div class="card-link" *ngIf="!isServiceCard">
+    <a>Читать дальше</a>
+  </div>
+</div>

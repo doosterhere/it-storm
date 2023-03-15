@@ -2,7 +2,7 @@ import { Directive } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validators } from "@angular/forms";
 
 @Directive( {
-  selector: '[directiveConfirmPassword]',
+  selector: '[appConfirmPasswordDirective]',
   providers: [{ provide: NG_VALIDATORS, useExisting: ConfirmPasswordDirective, multi: true }]
 } )
 export class ConfirmPasswordDirective implements Validators {

@@ -10,7 +10,6 @@ import { ArticleType } from "../../../types/article.type";
 import { ArticleService } from "../../shared/services/article.service";
 import { DefaultResponseType } from "../../../types/default-response.type";
 import { SnackbarErrorUtil } from "../../shared/utils/snackbar-error.util";
-import { environment } from "../../../environments/environment";
 import { ModalComponent } from "../../shared/components/modal/modal.component";
 import { ModalService } from "../../shared/services/modal.service";
 import { CategoryName } from "../../../types/categories.type";
@@ -26,8 +25,7 @@ export class MainComponent implements OnInit, OnDestroy {
   feedbacksCarouselOptions: OwlOptions = Config.feedbacksCarouselOptions;
   bannerSlidesContent = Config.bannersCarouselSlidesContent;
   feedbacksSlidesContent = Config.feedbacksCarouselSlidesContent;
-  servicesContent = Config.servicesCardsContent;
-  serverStaticPath = environment.serverStaticPath;
+  servicesContent = Config.servicesCardsContent as ArticleType[];
 
   articles: ArticleType[];
   articleServiceSubscription: Subscription | null;
@@ -36,7 +34,8 @@ export class MainComponent implements OnInit, OnDestroy {
   constructor(private articleService: ArticleService,
               private _snackBar: MatSnackBar,
               private modalService: ModalService,
-              public matDialog: MatDialog) {
+              public matDialog: MatDialog
+  ) {
     this.articles = [];
     this.articleServiceSubscription = null;
   }

@@ -1,9 +1,12 @@
+import { CategoryName } from "./categories.type";
+
 export type ArticleType = {
   id: string,
   title: string,
   description: string,
   image: string,
   date: string,
-  category: string,
-  url: string
+  category: CategoryName,
+  url: string,
+  price?: number
 }

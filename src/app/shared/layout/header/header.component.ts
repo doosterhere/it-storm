@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private authService: AuthService,
               private _snackBar: MatSnackBar) {
     this.isLogged = this.authService.isLogged;
-    this.userName = '';
+    this.userName = 'дурачок';
     this.authServiceIsLogged$Subscription = null;
     this.authServiceLogoutSubscription = null;
   }

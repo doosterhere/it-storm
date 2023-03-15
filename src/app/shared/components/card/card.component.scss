@@ -1,0 +1,97 @@
+@import "../../../../assets/styles/variables";
+
+.card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  height: 571px;
+
+  &.service-card {
+    height: auto;
+  }
+
+  .card-category {
+    position: absolute;
+    top: 10px;
+    right: 9px;
+
+    padding: 10px 18px;
+    border-radius: 5px;
+
+    font-size: 11px;
+    color: $color-lightblue;
+
+    text-align: center;
+    background-color: $color-white;
+  }
+
+  .card-image {
+    margin-bottom: 15px;
+    width: 291px;
+    height: 291px;
+    border-radius: 5px;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .card-title {
+    margin-bottom: 20px;
+
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 130%;
+    color: $color-lightblue;
+  }
+
+  &.service-card .card-title {
+    margin-bottom: 10px;
+  }
+
+  .card-text {
+    flex-grow: 1;
+
+    font-size: 14px;
+    line-height: 130%;
+  }
+
+  &.service-card .card-text {
+    flex-grow: 0;
+    margin-bottom: 15px;
+    height: 90px;
+  }
+
+  .card-action {
+    display: flex;
+    align-items: center;
+    gap: 21px;
+
+    .card-price {
+      width: 106px;
+
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: $color-lightblue;
+    }
+
+    .button {
+      width: 163px;
+    }
+  }
+
+  .card-link {
+    justify-self: flex-end;
+
+    a {
+      font-size: 16px;
+      color: $color-lightblue;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      cursor: pointer;
+    }
+  }
+}
