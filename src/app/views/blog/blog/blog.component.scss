@@ -1,0 +1,217 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+.blog {
+  padding: 80px 0 120px;
+
+  .container {
+    .blog__title {
+      margin-bottom: 40px;
+
+      @include title-lora-38;
+    }
+
+    .blog__head {
+      position: relative;
+
+      margin-bottom: 40px;
+
+      .blog__head-applied-filters {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+
+        .blog__head-applied-filter {
+          padding: 8px 21px 8px 20px;
+          display: none;
+          align-items: center;
+          gap: 8px;
+
+          background: $color-white;
+          border: 1px solid $color-lightblue;
+          border-radius: 5px;
+
+          &.selected {
+            display: flex;
+          }
+
+          span {
+            font-size: 16px;
+            color: $color-lightblue;
+          }
+
+          a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            cursor: pointer;
+
+            &:hover svg line {
+              stroke: $color-hover;
+            }
+          }
+        }
+      }
+
+      .blog__head-filter-selector {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+
+        cursor: pointer;
+
+        .blog__head-filter-selector-head {
+          display: flex;
+          align-items: center;
+
+          span {
+            width: 120px;
+
+            font-size: 16px;
+            line-height: 130%;
+            color: $color-text-primary;
+          }
+
+          &:hover {
+            span {
+              color: $color-hover;
+            }
+
+            svg path {
+              fill: $color-hover;
+            }
+          }
+        }
+
+        .blog__head-filter-selector-body {
+          padding: 17px 0;
+          display: none;
+          border: 1px solid $color-background;
+          border-radius: 0 0 5px 5px;
+          box-sizing: border-box;
+
+          background-color: $color-white;
+
+          .blog__head-filter-selector-item {
+            padding: 0 23px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 31px;
+
+            cursor: pointer;
+
+            span {
+              font-size: 16px;
+              line-height: 130%;
+              color: $color-lightgray;
+
+              &.sign {
+                font-size: 24px;
+              }
+            }
+
+            &.selected {
+              span {
+                color: $color-text-primary;
+              }
+            }
+
+            &:hover {
+              span {
+                color: $color-hover;
+              }
+
+              background-color: $color-background;
+            }
+          }
+        }
+
+        &.opened {
+          top: -12px;
+
+          .blog__head-filter-selector-head {
+            padding: 12px 23px;
+            border-radius: 5px 5px 0 0;
+            box-sizing: border-box;
+
+            background-color: $color-background;
+
+            span {
+              width: 177px;
+            }
+
+            svg {
+              rotate: 180deg;
+            }
+          }
+
+          .blog__head-filter-selector-body {
+            display: flex;
+            flex-direction: column;
+            row-gap: 14px;
+          }
+        }
+      }
+    }
+
+    .blog__cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px 24px;
+    }
+
+    .blog__pagination {
+      margin-top: 60px;
+      height: 47px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+
+      .pagination__arrow {
+        display: flex;
+
+        cursor: pointer;
+
+        &.disabled {
+          cursor: unset;
+
+          svg {
+            filter: grayscale(100%);
+          }
+        }
+      }
+
+      .pagination__pages {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+
+        .pagination__page {
+          display: flex;
+          justify-content: center;
+          width: 28px;
+
+          font-size: 20px;
+          color: $color-text-primary;
+
+          cursor: pointer;
+          user-select: none;
+
+          &.active {
+            color: $color-background;
+
+            cursor: unset;
+          }
+
+          &:hover:not(.active) {
+            color: $color-hover;
+          }
+        }
+      }
+    }
+  }
+}

@@ -87,49 +87,9 @@
       }
 
       .main___services-cards {
-        display: flex;
-        gap: 25px;
-
-        .main__service-card {
-          .main__service-card-image {
-            margin-bottom: 15px;
-          }
-
-          .main__service-card-title {
-            margin-bottom: 10px;
-
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 500;
-            font-size: 20px;
-            color: $color-lightblue;
-          }
-
-          .main__service-card-text {
-            margin-bottom: 15px;
-            height: 90px;
-
-            font-size: 14px;
-          }
-
-          .main__service-card-action {
-            display: flex;
-            align-items: center;
-            gap: 21px;
-
-            .main__service-card-price {
-              width: 106px;
-
-              font-family: 'Montserrat', sans-serif;
-              font-weight: 600;
-              font-size: 20px;
-              color: $color-lightblue;
-            }
-
-            .button {
-              width: 163px;
-            }
-          }
-        }
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: 25px;
       }
     }
 
@@ -228,71 +188,9 @@
 
       .main__popular-cards {
         margin-bottom: 40px;
-        display: flex;
-        gap: 24px;
-
-        .main__popular-card {
-          position: relative;
-
-          display: flex;
-          flex-direction: column;
-          height: 571px;
-
-          .main__popular-card-category {
-            position: absolute;
-            top: 10px;
-            right: 9px;
-
-            padding: 10px 18px;
-            border-radius: 5px;
-
-            font-size: 11px;
-            color: $color-lightblue;
-
-            text-align: center;
-            background-color: $color-white;
-          }
-
-          .main__popular-card-image {
-            margin-bottom: 15px;
-            width: 291px;
-            height: 291px;
-            border-radius: 5px;
-
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-          }
-
-          .main__popular-card-title {
-            margin-bottom: 20px;
-
-            font-weight: 500;
-            font-size: 20px;
-            line-height: 130%;
-            color: $color-lightblue;
-          }
-
-          .main__popular-card-text {
-            flex-grow: 1;
-
-            font-size: 14px;
-            line-height: 130%;
-          }
-
-          .main__popular-card-link {
-            justify-self: flex-end;
-
-            a {
-              font-size: 16px;
-              color: $color-lightblue;
-              text-decoration: underline;
-              text-underline-offset: 2px;
-
-              cursor: pointer;
-            }
-          }
-        }
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: 24px;
       }
 
       .main__popular-link {

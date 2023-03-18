@@ -5,8 +5,8 @@
         <div class="auth__title">Войти в личный кабинет</div>
 
         <div class="auth__form" [formGroup]="authForm">
-          <mat-icon class="password-icon"
-                    (click)="changePasswordVisibility()">{{ passwordIsVisible ? 'visibility_off' : 'visibility' }}
+          <mat-icon class="password-icon" (click)="changePasswordVisibility()">
+            {{ passwordIsVisible ? 'visibility' : 'visibility_off' }}
           </mat-icon>
 
           <div class="auth__form-input">

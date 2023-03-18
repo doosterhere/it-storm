@@ -48,7 +48,7 @@
       </div>
     </section>
 
-    <section class="main__services">
+    <section class="main__services" id="services">
       <div class="main__services-title">Услуги, которые мы предлагаем</div>
       <div class="main___services-cards">
         <app-card [article]="serviceContent" [isServiceCard]="true"
@@ -56,7 +56,7 @@
       </div>
     </section>
 
-    <section class="main__about">
+    <section class="main__about" id="about">
       <div class="main__about-image">
         <img src="../../../assets/images/pages/main/about.png" alt="people">
       </div>
@@ -107,13 +107,13 @@
       </div>
     </section>
 
-    <section class="main__popular">
+    <section class="main__popular" id="popular">
       <div class="main__popular-title">Популярные статьи из блога</div>
       <div class="main__popular-cards">
         <app-card [article]="article" *ngFor="let article of articles"></app-card>
       </div>
       <div class="main__popular-link">
-        <a>Перейти в блог</a>
+        <a [routerLink]="'/blog'">Перейти в блог</a>
         <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M1.44392 0C1.59871 0 1.75349 0.0565243 1.87569 0.177649L7.1873 5.44254C8.05085 6.29849 8.05085 7.70353 7.1873 8.55948L1.87569 13.8244C1.63944 14.0585 1.2484 14.0585 1.01215 13.8244C0.775898 13.5902 0.775898 13.2026 1.01215 12.9684L6.32376 7.70353C6.7148 7.31593 6.7148 6.68608 6.32376 6.29849L1.01215 1.0336C0.775898 0.799424 0.775898 0.411823 1.01215 0.177649C1.13435 0.064599 1.28914 0 1.44392 0Z"
@@ -122,7 +122,7 @@
       </div>
     </section>
 
-    <section class="main__feedbacks">
+    <section class="main__feedbacks" id="feedbacks">
       <div class="main__feedbacks-title">Отзывы о нашей работе</div>
       <div class="carousel">
         <div class="carousel__arrows">
@@ -148,7 +148,7 @@
       </div>
     </section>
 
-    <section class="main__contacts">
+    <section class="main__contacts" id="contacts">
       <div class="main__contacts-map">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4491.031683517589!2d37.53539050200926!3d55.749540817392095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54bdcbfd1b72d%3A0x433d48214f76b256!2sPresnenskaya%20Naberezhnaya%2C%2012%2C%20Moskva%2C%20Russia%2C%20123317!5e0!3m2!1sen!2sby!4v1678521588056!5m2!1sen!2sby"
