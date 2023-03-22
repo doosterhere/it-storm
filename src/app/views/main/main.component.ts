@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 import { OwlOptions } from "ngx-owl-carousel-o";
@@ -34,8 +35,8 @@ export class MainComponent implements OnInit, OnDestroy {
   constructor(private articleService: ArticleService,
               private _snackBar: MatSnackBar,
               private modalService: ModalService,
-              public matDialog: MatDialog
-  ) {
+              public matDialog: MatDialog,
+              public router: Router) {
     this.articles = [];
     this.articleServiceSubscription = null;
   }
@@ -43,7 +44,8 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.articleServiceSubscription = this.articleService.getPopular()
       .subscribe( (data: DefaultResponseType | ArticleType[]) => {
-        SnackbarErrorUtil.showErrorMessageIfErrorAndThrowError( data as DefaultResponseType, this._snackBar );
+        SnackbarErrorUtil
+          .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
         this.articles = data as ArticleType[];
       } );
@@ -57,5 +59,9 @@ export class MainComponent implements OnInit, OnDestroy {
     this.modalService.setIsLight( false );
     this.modalService.setCategory( category );
     this.matDialog.open( ModalComponent );
+  }
+
+  followTheLink(url: string): void {
+    this.router.navigate( [url] );
   }
 }

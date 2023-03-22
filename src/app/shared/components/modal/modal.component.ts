@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 
@@ -19,7 +19,6 @@ import { ModalService } from "../../services/modal.service";
   styleUrls: ['./modal.component.scss']
 } )
 export class ModalComponent implements OnInit, OnDestroy {
-  @ViewChild( 'thankYou' ) popupThankYou!: TemplateRef<ElementRef>;
   isLight: boolean;
   isRequestSubmitted: boolean;
   requestError: boolean;
@@ -58,7 +57,8 @@ export class ModalComponent implements OnInit, OnDestroy {
     if (!this.modalService.getCategoriesList().length) {
       this.categoryServiceSubscription = this.categoryService.getCategories()
         .subscribe( (data: DefaultResponseType | CategoriesType[]) => {
-          SnackbarErrorUtil.showErrorMessageIfErrorAndThrowError( data as DefaultResponseType, this._snackBar );
+          SnackbarErrorUtil
+            .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
           this.categories = data as CategoriesType[];
           this.modalService.setCategoriesList( this.categories );

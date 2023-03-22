@@ -1,7 +1,7 @@
 <div class="footer">
   <div class="container">
     <div class="footer__top">
-      <a [routerLink]="'/'" class="footer__logo">
+      <a class="footer__logo" (click)="followTheLink('/')">
         <img src="../../../../assets/images/Logotype.png" alt="logo">
       </a>
 
@@ -9,19 +9,19 @@
         <nav>
           <ul>
             <li>
-              <a [routerLink]="'/'" fragment="services">Услуги</a>
+              <a (click)="followTheLink('/', 'services')">Услуги</a>
             </li>
             <li>
-              <a [routerLink]="'/'" fragment="about">О нас</a>
+              <a (click)="followTheLink('/', 'about')">О нас</a>
             </li>
             <li>
-              <a [routerLink]="'/blog'">Статьи</a>
+              <a (click)="followTheLink('blog')">Статьи</a>
             </li>
             <li>
-              <a [routerLink]="'/'" fragment="feedbacks">Отзывы</a>
+              <a (click)="followTheLink('/', 'feedbacks')">Отзывы</a>
             </li>
             <li>
-              <a [routerLink]="'/'" fragment="contacts">Контакты</a>
+              <a (click)="followTheLink('/', 'contacts')">Контакты</a>
             </li>
           </ul>
         </nav>

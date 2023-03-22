@@ -16,6 +16,6 @@
   </div>
 
   <div class="card-link" *ngIf="!isServiceCard">
-    <a>Читать дальше</a>
+    <a (click)="followTheLink(article.url)">Читать дальше</a>
   </div>
 </div>

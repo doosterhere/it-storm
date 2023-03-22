@@ -1,9 +1,9 @@
 import { CategoryName } from "./categories.type";
-import { CommentType } from "./comment.type";
+import { CommentsType } from "./comments.type";
 
 export type DetailedArticleType = {
   text: string,
-  comments: CommentType[],
+  comments: CommentsType[],
   commentsCount: number,
   id: string,
   title: string,

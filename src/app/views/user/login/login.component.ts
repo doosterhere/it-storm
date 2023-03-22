@@ -44,7 +44,8 @@ export class LoginComponent implements OnDestroy {
         this.authService.login( this.authForm.value.email, this.authForm.value.password, this.authForm.value.checkbox )
           .subscribe( {
             next: (data: DefaultResponseType | LoginResponseType) => {
-              SnackbarErrorUtil.showErrorMessageIfErrorAndThrowError( data as DefaultResponseType, this._snackBar );
+              SnackbarErrorUtil
+                .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
               const loginResponse = data as LoginResponseType;
 
@@ -71,5 +72,9 @@ export class LoginComponent implements OnDestroy {
 
   changePasswordVisibility(): void {
     this.passwordIsVisible = !this.passwordIsVisible;
+  }
+
+  followTheLink(url: string): void {
+    this.router.navigate( [url] );
   }
 }

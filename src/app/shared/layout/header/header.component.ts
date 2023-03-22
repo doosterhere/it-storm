@@ -84,4 +84,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.setUserId( null );
     this._snackBar.open( 'Вы вышли из системы' );
   }
+
+  followTheLink(url: string, fragment?: string): void {
+    this.router.navigate( [url], { fragment: fragment } );
+  }
 }

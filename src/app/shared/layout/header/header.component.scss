@@ -48,11 +48,12 @@
     }
 
     .header__personal {
+      margin-left: 7px;
       display: flex;
       align-items: center;
       justify-content: flex-end;
       justify-self: flex-end;
-      flex-grow: 1;
+      width: 220px;
 
       span {
         margin-left: 7px;

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from "@angular/router";
 
 import { MatDialog } from "@angular/material/dialog";
 
@@ -20,7 +21,8 @@ export class CardComponent {
   serverStaticPath = environment.serverStaticPath;
 
   constructor(private modalService: ModalService,
-              public matDialog: MatDialog) {
+              public matDialog: MatDialog,
+              public router: Router) {
     this.isServiceCard = false;
   }
 
@@ -28,5 +30,9 @@ export class CardComponent {
     this.modalService.setIsLight( false );
     this.modalService.setCategory( category );
     this.matDialog.open( ModalComponent );
+  }
+
+  followTheLink(url: string): void {
+    this.router.navigate( ['blog/' + url] );
   }
 }

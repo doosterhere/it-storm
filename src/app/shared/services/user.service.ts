@@ -14,7 +14,7 @@ export class UserService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getUserInfo(text?: string, article?: string): Observable<DefaultResponseType | UserInfoType> {
+  getUserInfo(): Observable<DefaultResponseType | UserInfoType> {
     return this.httpClient.get<DefaultResponseType | UserInfoType>( environment.api + 'users' );
   }
 }

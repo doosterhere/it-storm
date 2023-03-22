@@ -1,3 +1,8 @@
+export type CommentsType = {
+  allCount: number,
+  comments: CommentType[]
+}
+
 export type CommentType = {
   id: string,
   text: string,
