@@ -108,7 +108,7 @@
 
             <div class="article__body-comment-text">{{ comment.text }}</div>
 
-            <div class="article__body-comment-reactions">
+            <div class="article__body-comment-reactions" *ngIf="isLogged">
               <div class="article__body-comment-reaction"
                    [class.selected]="reactions[ i ] && reactions[ i ].action === reactionType.like">
                 <span>{{ comment.likesCount }}</span>

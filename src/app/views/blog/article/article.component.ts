@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { HttpErrorResponse } from "@angular/common/http";
 import { Subscription } from "rxjs";
 
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -15,7 +16,6 @@ import { AuthService } from "../../../core/auth/auth.service";
 import { CommentService } from "../../../shared/services/comment.service";
 import { CommentsType, CommentType } from "../../../../types/comments.type";
 import { ReactionResponseType, ReactionType } from "../../../../types/reaction-response.type";
-import { HttpErrorResponse } from "@angular/common/http";
 
 @Component( {
   selector: 'app-article',
@@ -194,6 +194,32 @@ export class ArticleComponent implements OnInit, OnDestroy {
               }
 
               this.makeUserReactionsList();
+
+              if (foundedComment && !actionsBefore.length && reaction === ReactionType.like) {
+                foundedComment.likesCount++;
+              }
+
+              if (foundedComment && !actionsBefore.length && reaction === ReactionType.dislike) {
+                foundedComment.dislikesCount++;
+              }
+
+              if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.like) {
+                foundedComment.likesCount--;
+              }
+
+              if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.dislike) {
+                foundedComment.dislikesCount--;
+              }
+
+              if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.like) {
+                foundedComment.dislikesCount--;
+                foundedComment.likesCount++;
+              }
+
+              if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.dislike) {
+                foundedComment.likesCount--;
+                foundedComment.dislikesCount++;
+              }
             },
             error: (errorResponse: HttpErrorResponse) => {
               if (errorResponse.status === 400) {
@@ -201,37 +227,11 @@ export class ArticleComponent implements OnInit, OnDestroy {
               }
             }
           } );
-
-        if (foundedComment && !actionsBefore.length && reaction === ReactionType.like) {
-          foundedComment.likesCount++;
-        }
-
-        if (foundedComment && !actionsBefore.length && reaction === ReactionType.dislike) {
-          foundedComment.dislikesCount++;
-        }
-
-        if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.like) {
-          foundedComment.likesCount--;
-        }
-
-        if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.dislike) {
-          foundedComment.dislikesCount--;
-        }
-
-        if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.like) {
-          foundedComment.dislikesCount--;
-          foundedComment.likesCount++;
-        }
-
-        if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.dislike) {
-          foundedComment.likesCount--;
-          foundedComment.dislikesCount++;
-        }
       } );
   }
 
   makeUserReactionsList(): void {
-    if (this.article) {
+    if (this.article && this.isLogged) {
       this.commentServiceGetActionsForArticleCommentsSubscription =
         this.commentService.getActionsForArticleComments( this.article.id )
           .subscribe( (data: DefaultResponseType | ReactionResponseType[]) => {
