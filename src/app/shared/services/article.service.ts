@@ -6,7 +6,7 @@ import { DefaultResponseType } from "../../../types/default-response.type";
 import { environment } from "../../../environments/environment";
 import { ArticleType } from "../../../types/article.type";
 import { ArticlesType } from "../../../types/articles.type";
-import { DetailedArticleType } from "../../../types/detailed.article.type";
+import { DetailedArticleType } from "../../../types/detailed-article.type";
 import { ActiveParamsType } from "../../../types/active-params.type";
 
 @Injectable( {

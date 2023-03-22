@@ -49,7 +49,8 @@ export class BlogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.categoryServiceGetCategoriesSubscription = this.categoryService.getCategories()
       .subscribe( (data: DefaultResponseType | CategoriesType[]) => {
-        SnackbarErrorUtil.showErrorMessageIfErrorAndThrowError( data as DefaultResponseType, this._snackBar );
+        SnackbarErrorUtil
+          .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
         this.categories = data as CategoriesType[];
 
@@ -76,7 +77,8 @@ export class BlogComponent implements OnInit, OnDestroy {
 
             this.articleServiceGetArticlesSubscription = this.articleService.getArticles( this.activeParams )
               .subscribe( (data: DefaultResponseType | ArticlesType) => {
-                SnackbarErrorUtil.showErrorMessageIfErrorAndThrowError( data as DefaultResponseType, this._snackBar );
+                SnackbarErrorUtil
+                  .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
                 this.articles = data as ArticlesType;
 
