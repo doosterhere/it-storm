@@ -271,6 +271,10 @@
                   }
                 }
 
+                &.disabled span {
+                  cursor: unset;
+                }
+
                 &.selected {
                   span {
                     color: $color-lightblue;
@@ -281,17 +285,17 @@
                   }
                 }
 
-                &:hover span:last-child svg path {
+                &:hover:not(.disabled) span:last-child svg path {
                   stroke: $color-hover;
                 }
               }
 
               .article__body-comment-report-spam {
-                span {
+                &:not(.disabled) span {
                   cursor: pointer;
                 }
 
-                &:hover span svg path {
+                &:hover:not(.disabled) span svg path {
                   stroke: $color-hover;
                 }
               }

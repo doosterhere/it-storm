@@ -166,68 +166,70 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   applyReaction(id: string, reaction: ReactionType): void {
-    this.commentServiceGetActionsForCommentSubscription = this.commentService.getActionsForComment( id )
-      .subscribe( (data: DefaultResponseType | ReactionResponseType[]) => {
-        if (( data as DefaultResponseType ).error) {
-          this._snackBar.open( 'Произошла ошибка. Повторите позже' );
-          throw new Error( 'Failed to get user reaction to the comment' );
-        }
+    if (this.isLogged) {
+      this.commentServiceGetActionsForCommentSubscription = this.commentService.getActionsForComment( id )
+        .subscribe( (data: DefaultResponseType | ReactionResponseType[]) => {
+          if (( data as DefaultResponseType ).error) {
+            this._snackBar.open( 'Произошла ошибка. Повторите позже' );
+            throw new Error( 'Failed to get user reaction to the comment' );
+          }
 
-        const foundedComment = this.comments.find( (comment: CommentType) => comment.id === id );
-        const actionsBefore = data as ReactionResponseType[];
-        const reactionBefore: ReactionType | undefined =
-          actionsBefore.length ? actionsBefore.find( res => res.comment === id )?.action : undefined;
+          const foundedComment = this.comments.find( (comment: CommentType) => comment.id === id );
+          const actionsBefore = data as ReactionResponseType[];
+          const reactionBefore: ReactionType | undefined =
+            actionsBefore.length ? actionsBefore.find( res => res.comment === id )?.action : undefined;
 
-        this.commentServiceApplyReactionSubscription = this.commentService.applyReaction( id, reaction )
-          .subscribe( {
-            next: (data: DefaultResponseType) => {
-              if (data.error) {
-                this._snackBar.open( data.message );
+          this.commentServiceApplyReactionSubscription = this.commentService.applyReaction( id, reaction )
+            .subscribe( {
+              next: (data: DefaultResponseType) => {
+                if (data.error) {
+                  this._snackBar.open( data.message );
+                }
+
+                if (reaction === ReactionType.violate) {
+                  this._snackBar.open( 'Жалоба отправлена' );
+                }
+
+                if (reaction === ReactionType.like || reaction === ReactionType.dislike) {
+                  this._snackBar.open( 'Ваш голос учтён' );
+                }
+
+                this.makeUserReactionsList();
+
+                if (foundedComment && !actionsBefore.length && reaction === ReactionType.like) {
+                  foundedComment.likesCount++;
+                }
+
+                if (foundedComment && !actionsBefore.length && reaction === ReactionType.dislike) {
+                  foundedComment.dislikesCount++;
+                }
+
+                if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.like) {
+                  foundedComment.likesCount--;
+                }
+
+                if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.dislike) {
+                  foundedComment.dislikesCount--;
+                }
+
+                if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.like) {
+                  foundedComment.dislikesCount--;
+                  foundedComment.likesCount++;
+                }
+
+                if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.dislike) {
+                  foundedComment.likesCount--;
+                  foundedComment.dislikesCount++;
+                }
+              },
+              error: (errorResponse: HttpErrorResponse) => {
+                if (errorResponse.status === 400) {
+                  this._snackBar.open( errorResponse.error.message );
+                }
               }
-
-              if (reaction === ReactionType.violate) {
-                this._snackBar.open( 'Жалоба отправлена' );
-              }
-
-              if (reaction === ReactionType.like || reaction === ReactionType.dislike) {
-                this._snackBar.open( 'Ваш голос учтён' );
-              }
-
-              this.makeUserReactionsList();
-
-              if (foundedComment && !actionsBefore.length && reaction === ReactionType.like) {
-                foundedComment.likesCount++;
-              }
-
-              if (foundedComment && !actionsBefore.length && reaction === ReactionType.dislike) {
-                foundedComment.dislikesCount++;
-              }
-
-              if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.like) {
-                foundedComment.likesCount--;
-              }
-
-              if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.dislike) {
-                foundedComment.dislikesCount--;
-              }
-
-              if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.like) {
-                foundedComment.dislikesCount--;
-                foundedComment.likesCount++;
-              }
-
-              if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.dislike) {
-                foundedComment.likesCount--;
-                foundedComment.dislikesCount++;
-              }
-            },
-            error: (errorResponse: HttpErrorResponse) => {
-              if (errorResponse.status === 400) {
-                this._snackBar.open( errorResponse.error.message );
-              }
-            }
-          } );
-      } );
+            } );
+        } );
+    }
   }
 
   makeUserReactionsList(): void {
