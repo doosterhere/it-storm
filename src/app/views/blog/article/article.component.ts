@@ -26,6 +26,7 @@ import { ReactionResponseType, ReactionType } from "../../../../types/reaction-r
 export class ArticleComponent implements OnInit, OnDestroy {
   serverStaticPath = environment.serverStaticPath;
   isLogged: boolean;
+  showSpinner: boolean;
   article: DetailedArticleType | null;
   relatedArticles: ArticleType[] | null;
   comments: CommentType[];
@@ -55,6 +56,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
               private fb: FormBuilder,
               private commentService: CommentService) {
     this.isLogged = this.authService.isLogged;
+    this.showSpinner = false;
     this.article = null;
     this.relatedArticles = null;
     this.comments = [];
@@ -132,10 +134,12 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   getComments(offset: number): void {
     if (this.article) {
+      this.showSpinner = true;
       this.commentServiceGetCommentsSubscription = this.commentService.getComments( offset, this.article.id )
         .subscribe( (data: DefaultResponseType | CommentsType) => {
           if (( data as DefaultResponseType ).error) {
             this._snackBar.open( 'Не удалось загрузить комментарии, попробуйте позже' );
+            this.showSpinner = false;
             throw new Error( ( data as DefaultResponseType ).message );
           }
 
@@ -149,6 +153,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
           this.comments = this.comments.concat( commentsData.comments );
           this.currentOffset = this.comments.length;
           this.refillReactionsForLoadedComments();
+          this.showSpinner = false;
         } );
     }
   }

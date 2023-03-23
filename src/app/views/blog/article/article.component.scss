@@ -1,5 +1,6 @@
 @import "../../../../assets/styles/variables";
 @import "../../../../assets/styles/mixins";
+@import "../../../../assets/styles/animation";
 
 .article {
   padding: 80px 0 120px 0;
@@ -302,20 +303,130 @@
             }
           }
 
-          .article__body-load-more-comments-link {
+          .article__body-load-more-comment {
+            position: relative;
+
             display: flex;
             align-items: center;
-            gap: 10px;
 
-            cursor: pointer;
+            .spinner {
+              position: absolute;
+              top: -11px;
+              left: 142px;
 
-            a {
-              font-family: 'Montserrat', sans-serif;
-              font-style: normal;
-              font-weight: 500;
-              font-size: 20px;
-              line-height: 130%;
-              color: $color-lightblue;
+              width: 49px;
+              height: 49px;
+
+              & div {
+                position: absolute;
+                top: 22px;
+                right: 3px;
+
+                width: 12px;
+                height: 5px;
+                box-sizing: border-box;
+                border-radius: 5px;
+
+                background-color: #c4d9fd;
+                opacity: 0;
+
+                animation: petal 1.05s linear infinite;
+              }
+
+              & div:nth-child(2) {
+                top: 29px;
+                right: 10px;
+
+                width: 5px;
+                height: 15px;
+                rotate: -45deg;
+
+                background-color: #c4d9fd;
+
+                animation-delay: 0.15s;
+              }
+
+              & div:nth-child(3) {
+                top: 34px;
+                right: 22px;
+
+                width: 5px;
+                height: 15px;
+                rotate: 0;
+
+                background-color: #73a1fb;
+
+                animation-delay: 0.30s;
+              }
+
+              & div:nth-child(4) {
+                top: 29px;
+                right: 34px;
+
+                width: 5px;
+                height: 15px;
+                rotate: 45deg;
+
+                background-color: #5286fa;
+
+                animation-delay: 0.45s;
+              }
+
+              & div:nth-child(5) {
+                top: 22px;
+                right: 34px;
+
+                width: 15px;
+                height: 5px;
+                rotate: 0;
+
+                background-color: #3d6deb;
+
+                animation-delay: 0.60s;
+              }
+
+              & div:nth-child(6) {
+                top: 10px;
+                right: 29px;
+
+                width: 15px;
+                height: 5px;
+                rotate: 45deg;
+
+                background-color: #355ec9;
+
+                animation-delay: 0.75s;
+              }
+
+              & div:nth-child(7) {
+                top: 0;
+                right: 22px;
+
+                width: 5px;
+                height: 15px;
+                rotate: 0;
+
+                background-color: #2d50a7;
+
+                animation-delay: 0.90s;
+              }
+            }
+
+            .article__body-load-more-comments-link {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+
+              cursor: pointer;
+
+              a {
+                font-family: 'Montserrat', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 130%;
+                color: $color-lightblue;
+              }
             }
           }
         }

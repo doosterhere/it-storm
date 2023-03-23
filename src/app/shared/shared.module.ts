@@ -7,6 +7,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatIconModule } from "@angular/material/icon";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSelectModule } from "@angular/material/select";
+import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
 
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
@@ -32,12 +33,16 @@ import { CardComponent } from './components/card/card.component';
     RouterOutlet,
     RouterLink,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    NgxMaskDirective
   ],
   exports: [
     ModalComponent,
     ConfirmPasswordDirective,
     CardComponent
+  ],
+  providers: [
+    provideNgxMask()
   ]
 } )
 export class SharedModule {

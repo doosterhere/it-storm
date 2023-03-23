@@ -27,6 +27,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   categoryServiceSubscription: Subscription | null;
   categories: CategoriesType[] | null;
   timeout: number | null;
+  readonly nameValidatorPattern = /^([А-Я][а-яё]{1,23})(\s[А-Я][а-яё]{0,23})*$/;
 
   constructor(public dialogRef: MatDialogRef<ModalComponent>,
               private fb: FormBuilder,
@@ -44,7 +45,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.timeout = null;
     this.requestForm = this.fb.group( {
       service: [CategoryName.freelance, [Validators.required]],
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern( this.nameValidatorPattern )]],
       phone: ['', [Validators.required]]
     } );
   }
