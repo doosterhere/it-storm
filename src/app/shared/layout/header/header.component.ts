@@ -17,6 +17,7 @@ import { UserInfoType } from "../../../../types/user-info.type";
 export class HeaderComponent implements OnInit, OnDestroy {
   isLogged: boolean;
   userName: string;
+  timeout: number | null;
   authServiceIsLogged$Subscription: Subscription | null;
   authServiceLogoutSubscription: Subscription | null;
   userServiceGetUserInfoSubscription: Subscription | null;
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private userService: UserService) {
     this.isLogged = this.authService.isLogged;
     this.userName = '';
+    this.timeout = null;
     this.authServiceIsLogged$Subscription = null;
     this.authServiceLogoutSubscription = null;
     this.userServiceGetUserInfoSubscription = null;
@@ -46,6 +48,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authServiceIsLogged$Subscription?.unsubscribe();
     this.authServiceLogoutSubscription?.unsubscribe();
     this.userServiceGetUserInfoSubscription?.unsubscribe();
+    if (this.timeout) {
+      window.clearTimeout( this.timeout );
+    }
   }
 
   getUserInfo(): void {
@@ -85,7 +90,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this._snackBar.open( 'Вы вышли из системы' );
   }
 
-  followTheLink(url: string, fragment?: string): void {
-    this.router.navigate( [url], { fragment: fragment } );
+  followTheLink(url: string, id?: string): void {
+    this.router.navigate( [url] ).then( () => {
+      if (id) {
+        this.timeout = window.setTimeout( () => {
+          const element = document.getElementById( id );
+          element?.scrollIntoView( { behavior: 'smooth', block: 'start', inline: 'nearest' } );
+        }, 100 );
+      }
+    } );
   }
 }

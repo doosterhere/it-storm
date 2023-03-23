@@ -110,7 +110,7 @@
 
             <div class="article__body-comment-reactions">
               <div class="article__body-comment-reaction" [class.disabled]="!isLogged"
-                   [class.selected]="reactions[ i ] && reactions[ i ].action === reactionType.like && isLogged">
+                   [class.selected]="reactions[i] && reactions[i].action === reactionType.like && isLogged">
                 <span>{{ comment.likesCount }}</span>
                 <span (click)="applyReaction(comment.id, reactionType.like)">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -125,7 +125,7 @@
               </div>
 
               <div class="article__body-comment-reaction" [class.disabled]="!isLogged"
-                   [class.selected]="reactions[ i ] && reactions[ i ].action === reactionType.dislike && isLogged">
+                   [class.selected]="reactions[i] && reactions[i].action === reactionType.dislike && isLogged">
                 <span>{{ comment.dislikesCount }}</span>
                 <span (click)="applyReaction(comment.id, reactionType.dislike)">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router } from "@angular/router";
 
 import { MatDialog } from "@angular/material/dialog";
@@ -11,11 +11,19 @@ import { ModalService } from "../../services/modal.service";
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 } )
-export class FooterComponent {
+export class FooterComponent implements OnDestroy {
+  timeout: number | null;
 
   constructor(public matDialog: MatDialog,
               private modalService: ModalService,
               private router: Router) {
+    this.timeout = null;
+  }
+
+  ngOnDestroy(): void {
+    if (this.timeout) {
+      window.clearTimeout( this.timeout );
+    }
   }
 
   openModal(): void {
@@ -23,7 +31,14 @@ export class FooterComponent {
     this.matDialog.open( ModalComponent );
   }
 
-  followTheLink(url: string, fragment?: string): void {
-    this.router.navigate( [url], { fragment: fragment } );
+  followTheLink(url: string, id?: string): void {
+    this.router.navigate( [url] ).then( () => {
+      if (id) {
+        this.timeout = window.setTimeout( () => {
+          const element = document.getElementById( id );
+          element?.scrollIntoView( { behavior: 'smooth', block: 'start', inline: 'nearest' } );
+        }, 100 );
+      }
+    } );
   }
 }

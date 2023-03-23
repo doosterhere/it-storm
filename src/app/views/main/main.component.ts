@@ -35,8 +35,8 @@ export class MainComponent implements OnInit, OnDestroy {
   constructor(private articleService: ArticleService,
               private _snackBar: MatSnackBar,
               private modalService: ModalService,
-              public matDialog: MatDialog,
-              public router: Router) {
+              private matDialog: MatDialog,
+              private router: Router) {
     this.articles = [];
     this.articleServiceSubscription = null;
   }
