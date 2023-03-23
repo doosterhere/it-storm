@@ -1,0 +1,40 @@
+@import "../../../assets/styles/variables";
+
+.layout {
+  position: relative;
+
+  .layout__to-the-header, .layout__to-the-footer {
+    position: fixed;
+    right: 20px;
+
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 2px solid $color-lightblue;
+    border-radius: 5px;
+
+    font-size: 32px;
+    color: $color-lightblue;
+
+    user-select: none;
+    background-color: $color-white;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $color-hover;
+      color: $color-hover;
+    }
+  }
+
+  .layout__to-the-header {
+    bottom: 80px;
+  }
+
+  .layout__to-the-footer {
+    bottom: 20px;
+  }
+}
+

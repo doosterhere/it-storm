@@ -1,3 +1,11 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+<div class="layout">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+  <div class="layout__to-the-header" (click)="scrollToTheHeader()">
+    <mat-icon>arrow_upward</mat-icon>
+  </div>
+  <div class="layout__to-the-footer" (click)="scrollToTheFooter()">
+    <mat-icon>arrow_downward</mat-icon>
+  </div>
+</div>
