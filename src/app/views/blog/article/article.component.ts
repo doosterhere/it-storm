@@ -29,7 +29,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
   article: DetailedArticleType | null;
   relatedArticles: ArticleType[] | null;
   comments: CommentType[];
-  reactions: ReactionResponseType[];
+  reactionsFull: ReactionResponseType[];
+  reactionsForLoadedComments: ReactionResponseType[];
   commentForm: FormGroup;
   currentOffset: number;
   allCount: number;
@@ -57,7 +58,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.article = null;
     this.relatedArticles = null;
     this.comments = [];
-    this.reactions = [];
+    this.reactionsFull = [];
+    this.reactionsForLoadedComments = [];
     this.currentOffset = 0;
     this.allCount = 0;
     this.currentUrl = '';
@@ -114,6 +116,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
           .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
         this.article = data as DetailedArticleType;
+        this.getReactionsFullAndRefillReactionsForLoadedComments();
 
         this.articleServiceGetRelatedSubscription = this.articleService.getRelated( this.article.url )
           .subscribe( (data: DefaultResponseType | ArticleType[]) => {
@@ -145,7 +148,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
           this.comments = this.comments.concat( commentsData.comments );
           this.currentOffset = this.comments.length;
-          this.makeUserReactionsList();
+          this.refillReactionsForLoadedComments();
         } );
     }
   }
@@ -194,7 +197,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
                   this._snackBar.open( 'Ваш голос учтён' );
                 }
 
-                this.makeUserReactionsList();
+                this.getReactionsFullAndRefillReactionsForLoadedComments();
 
                 if (foundedComment && !actionsBefore.length && reaction === ReactionType.like) {
                   foundedComment.likesCount++;
@@ -223,8 +226,10 @@ export class ArticleComponent implements OnInit, OnDestroy {
                 }
               },
               error: (errorResponse: HttpErrorResponse) => {
-                if (errorResponse.status === 400) {
+                if (errorResponse.error && errorResponse.error.error) {
                   this._snackBar.open( errorResponse.error.message );
+                } else {
+                  throw new Error( errorResponse.message );
                 }
               }
             } );
@@ -232,7 +237,25 @@ export class ArticleComponent implements OnInit, OnDestroy {
     }
   }
 
-  makeUserReactionsList(): void {
+  refillReactionsForLoadedComments(): void {
+    if (this.article && this.isLogged) {
+      this.reactionsForLoadedComments = [];
+      this.comments.forEach( (comment: CommentType) => {
+        const result: ReactionResponseType | undefined =
+          this.reactionsFull.find( reaction => reaction.comment === comment.id );
+
+        if (result) {
+          this.reactionsForLoadedComments.push( result );
+        }
+
+        if (!result) {
+          this.reactionsForLoadedComments.push( { comment: 'fake-comment-id', action: ReactionType.violate } );
+        }
+      } );
+    }
+  }
+
+  getReactionsFullAndRefillReactionsForLoadedComments(): void {
     if (this.article && this.isLogged) {
       this.commentServiceGetActionsForArticleCommentsSubscription =
         this.commentService.getActionsForArticleComments( this.article.id )
@@ -241,19 +264,8 @@ export class ArticleComponent implements OnInit, OnDestroy {
               throw new Error( 'Failed to get user reactions to the article comments' );
             }
 
-            this.reactions = [];
-            const reactions = data as ReactionResponseType[];
-            this.comments.forEach( (comment: CommentType) => {
-              const result: ReactionResponseType | undefined =
-                reactions.find( reaction => reaction.comment === comment.id );
-              if (result) {
-                this.reactions.push( result );
-              }
-
-              if (!result) {
-                this.reactions.push( { comment: 'non-existent-comment-id', action: ReactionType.violate } );
-              }
-            } );
+            this.reactionsFull = data as ReactionResponseType[];
+            this.refillReactionsForLoadedComments();
           } );
     }
   }
