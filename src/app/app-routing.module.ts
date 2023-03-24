@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LayoutComponent } from "./shared/layout/layout.component";
 import { MainComponent } from "./views/main/main.component";
+import { PageNotFoundComponent } from "./views/page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {
@@ -11,7 +12,8 @@ const routes: Routes = [
     children: [
       { path: '', component: MainComponent },
       { path: '', loadChildren: () => import('./views/user/user.module').then( m => m.UserModule ) },
-      { path: '', loadChildren: () => import('./views/blog/blog.module').then( m => m.BlogModule ) }
+      { path: '', loadChildren: () => import('./views/blog/blog.module').then( m => m.BlogModule ) },
+      { path: '**', component: PageNotFoundComponent }
     ]
   }
 ];

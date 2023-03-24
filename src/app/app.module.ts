@@ -13,11 +13,13 @@ import { AppComponent } from './app.component';
 import { SharedModule } from "./shared/shared.module";
 import { MainComponent } from './views/main/main.component';
 import { AuthInterceptor } from "./core/auth/auth.interceptor";
+import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 
 @NgModule( {
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

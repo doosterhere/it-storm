@@ -1,0 +1,18 @@
+@import "../../../assets/styles/variables";
+
+.page-not-found {
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 427px);
+
+    font-family: 'Lora', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    color: $color-lightblue;
+    text-align: center;
+  }
+}

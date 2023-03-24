@@ -27,10 +27,9 @@ export class MainComponent implements OnInit, OnDestroy {
   bannerSlidesContent = Config.bannersCarouselSlidesContent;
   feedbacksSlidesContent = Config.feedbacksCarouselSlidesContent;
   servicesContent = Config.servicesCardsContent as ArticleType[];
-
+  category = CategoryName;
   articles: ArticleType[];
   articleServiceSubscription: Subscription | null;
-  category = CategoryName;
 
   constructor(private articleService: ArticleService,
               private _snackBar: MatSnackBar,

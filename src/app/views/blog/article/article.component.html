@@ -87,7 +87,9 @@
         </div>
 
         <div class="article__body-comments">
-          <div class="article__body-comments-no-comments-yet" *ngIf="!allCount">Комментариев пока нет</div>
+          <div class="article__body-comments-no-comments-yet" *ngIf="!allCount && !showSpinner">
+            Комментариев пока нет
+          </div>
 
           <div class="article__body-comment" *ngFor="let comment of comments; let i = index">
             <div class="article__body-comment-head">

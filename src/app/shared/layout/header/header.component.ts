@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Event, NavigationEnd, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (id) {
         this.timeout = window.setTimeout( () => {
           const element = document.getElementById( id );
-          element?.scrollIntoView( { behavior: 'smooth', block: 'start', inline: 'nearest' } );
+          element?.scrollIntoView( { behavior: 'smooth' } );
         }, 100 );
       }
     } );
