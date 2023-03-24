@@ -1,5 +1,6 @@
 @import "../../../../assets/styles/variables";
 @import "../../../../assets/styles/mixins";
+@import "../../../../assets/styles/animation";
 
 .blog {
   padding: 80px 0 120px;
@@ -20,6 +21,7 @@
         display: flex;
         gap: 15px;
         flex-wrap: wrap;
+        height: 37px;
 
         .blog__head-applied-filter {
           padding: 8px 21px 8px 20px;

@@ -36,7 +36,7 @@ export class FooterComponent implements OnDestroy {
       if (id) {
         this.timeout = window.setTimeout( () => {
           const element = document.getElementById( id );
-          element?.scrollIntoView( { behavior: 'smooth', block: 'start', inline: 'nearest' } );
+          element?.scrollIntoView( { behavior: 'smooth' } );
         }, 100 );
       }
     } );

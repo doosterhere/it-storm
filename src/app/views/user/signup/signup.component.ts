@@ -58,18 +58,18 @@ export class SignupComponent implements OnDestroy {
               const signupResponse = data as LoginResponseType;
 
               if (!signupResponse.accessToken || !signupResponse.refreshToken || !signupResponse.userId) {
-                this._snackBar.open( 'Ошибка авторизации' );
-                throw new Error( 'Ошибка авторизации' );
+                this._snackBar.open( 'Ошибка регистрации' );
+                throw new Error( 'Ошибка регистрации' );
               }
 
               this._snackBar.open( 'Регистрация выполнена' );
               this.router.navigate( ['/login'] );
             },
             error: (errorResponse: HttpErrorResponse) => {
-              if (errorResponse.error && errorResponse.error.message) {
-                this._snackBar.open( errorResponse.message );
+              if (errorResponse.error && errorResponse.error.error) {
+                this._snackBar.open( errorResponse.error.message );
               } else {
-                this._snackBar.open( 'Ошибка авторизации' );
+                this._snackBar.open( 'Ошибка регистрации' );
               }
             }
           } );

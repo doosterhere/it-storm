@@ -60,8 +60,8 @@ export class LoginComponent implements OnDestroy {
               this.router.navigate( ['/'] );
             },
             error: (errorResponse: HttpErrorResponse) => {
-              if (errorResponse.error && errorResponse.error.message) {
-                this._snackBar.open( errorResponse.message );
+              if (errorResponse.error && errorResponse.error.error) {
+                this._snackBar.open( errorResponse.error.message );
               } else {
                 this._snackBar.open( 'Ошибка авторизации' );
               }

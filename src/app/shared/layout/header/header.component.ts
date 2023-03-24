@@ -1,5 +1,5 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Event, NavigationEnd, Router } from "@angular/router";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -8,6 +8,7 @@ import { AuthService } from "../../../core/auth/auth.service";
 import { UserService } from "../../services/user.service";
 import { DefaultResponseType } from "../../../../types/default-response.type";
 import { UserInfoType } from "../../../../types/user-info.type";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component( {
   selector: 'app-header',
@@ -56,13 +57,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getUserInfo(): void {
     if (this.isLogged) {
       this.userServiceGetUserInfoSubscription = this.userService.getUserInfo()
-        .subscribe( (data: DefaultResponseType | UserInfoType) => {
-          if (( data as DefaultResponseType ).error) {
-            this.userName = 'друг';
-            throw new Error( 'couldn\'t get the username (не удалось получить имя пользователя)' );
-          }
+        .subscribe( {
+          next: (data: DefaultResponseType | UserInfoType) => {
+            if (( data as DefaultResponseType ).error) {
+              this.userName = 'друг';
+              throw new Error( 'couldn\'t get the username (не удалось получить имя пользователя)' );
+            }
 
-          this.userName = ( data as UserInfoType ).name.split( ' ' )[0];
+            this.userName = ( data as UserInfoType ).name.split( ' ' )[0];
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            if (errorResponse.error && errorResponse.error.error) {
+              this._snackBar.open( errorResponse.error.message );
+            } else {
+              this._snackBar.open( 'Ошибка регистрации' );
+            }
+          }
         } );
     }
   }

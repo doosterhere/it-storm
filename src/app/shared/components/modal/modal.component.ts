@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { HttpErrorResponse } from "@angular/common/http";
 import { Subscription } from "rxjs";
 
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
@@ -57,12 +58,21 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     if (!this.modalService.getCategoriesList().length) {
       this.categoryServiceSubscription = this.categoryService.getCategories()
-        .subscribe( (data: DefaultResponseType | CategoriesType[]) => {
-          SnackbarErrorUtil
-            .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
+        .subscribe( {
+          next: (data: DefaultResponseType | CategoriesType[]) => {
+            SnackbarErrorUtil
+              .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
-          this.categories = data as CategoriesType[];
-          this.modalService.setCategoriesList( this.categories );
+            this.categories = data as CategoriesType[];
+            this.modalService.setCategoriesList( this.categories );
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            if (errorResponse.error && errorResponse.error.error) {
+              this._snackBar.open( errorResponse.error.message );
+            } else {
+              throw new Error( errorResponse.message );
+            }
+          }
         } );
     }
 
@@ -94,17 +104,26 @@ export class ModalComponent implements OnInit, OnDestroy {
       }
 
       this.requestServiceSubscription = this.requestService.sendRequest( requestData )
-        .subscribe( (response: DefaultResponseType) => {
-          if (response.error) {
-            this.requestError = true;
-            this.timeout = window.setTimeout( () => {
-              this.requestError = false;
-            }, 3500 );
-            throw new Error( response.message );
-          }
+        .subscribe( {
+          next: (response: DefaultResponseType) => {
+            if (response.error) {
+              this.requestError = true;
+              this.timeout = window.setTimeout( () => {
+                this.requestError = false;
+              }, 3500 );
+              throw new Error( response.message );
+            }
 
-          this.requestError = false;
-          this.isRequestSubmitted = true;
+            this.requestError = false;
+            this.isRequestSubmitted = true;
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            if (errorResponse.error && errorResponse.error.error) {
+              this._snackBar.open( errorResponse.error.message );
+            } else {
+              throw new Error( errorResponse.message );
+            }
+          }
         } );
     }
 

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from "@angular/router";
 
 @Component( {
   selector: 'app-page-not-found',
@@ -7,10 +6,4 @@ import { Router } from "@angular/router";
   styleUrls: ['./page-not-found.component.scss']
 } )
 export class PageNotFoundComponent {
-  constructor(private router: Router) {
-  }
-
-  followTheLink(url: string): void {
-    this.router.navigate( [url] );
-  }
 }

@@ -13,6 +13,7 @@ import { CategoryService } from "../../../shared/services/category.service";
 import { AppliedFilterType } from "../../../../types/applied-filter.type";
 import { ActiveParamsType } from "../../../../types/active-params.type";
 import { ActiveParamsUtil } from "../../../shared/utils/active-params.util";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component( {
   selector: 'app-blog',
@@ -48,46 +49,64 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.categoryServiceGetCategoriesSubscription = this.categoryService.getCategories()
-      .subscribe( (data: DefaultResponseType | CategoriesType[]) => {
-        SnackbarErrorUtil
-          .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
+      .subscribe( {
+        next: (data: DefaultResponseType | CategoriesType[]) => {
+          SnackbarErrorUtil
+            .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
-        this.categories = data as CategoriesType[];
+          this.categories = data as CategoriesType[];
 
-        this.activatedRouteQueryParamsSubscription = this.activatedRoute.queryParams
-          .pipe(
-            debounceTime( 500 )
-          )
-          .subscribe( (params: Params) => {
-            this.activeParams = ActiveParamsUtil.processParams( params );
-            this.appliedFilters = [];
+          this.activatedRouteQueryParamsSubscription = this.activatedRoute.queryParams
+            .pipe(
+              debounceTime( 500 )
+            )
+            .subscribe( (params: Params) => {
+              this.activeParams = ActiveParamsUtil.processParams( params );
+              this.appliedFilters = [];
 
-            this.activeParams.categories.forEach( (url: string) => {
-              if (this.categories?.length) {
-                const foundCategory = this.categories.find( (category: CategoriesType) => category.url === url );
+              this.activeParams.categories.forEach( (url: string) => {
+                if (this.categories?.length) {
+                  const foundCategory = this.categories.find( (category: CategoriesType) => category.url === url );
 
-                if (foundCategory) {
-                  this.appliedFilters.push( {
-                    name: foundCategory.name,
-                    url: foundCategory.url
-                  } );
-                }
-              }
-            } );
-
-            this.articleServiceGetArticlesSubscription = this.articleService.getArticles( this.activeParams )
-              .subscribe( (data: DefaultResponseType | ArticlesType) => {
-                SnackbarErrorUtil
-                  .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
-
-                this.articles = data as ArticlesType;
-
-                this.pages = [];
-                for (let i = 1; i <= this.articles.pages; i++) {
-                  this.pages.push( i );
+                  if (foundCategory) {
+                    this.appliedFilters.push( {
+                      name: foundCategory.name,
+                      url: foundCategory.url
+                    } );
+                  }
                 }
               } );
-          } );
+
+              this.articleServiceGetArticlesSubscription = this.articleService.getArticles( this.activeParams )
+                .subscribe( {
+                  next: (data: DefaultResponseType | ArticlesType) => {
+                    SnackbarErrorUtil
+                      .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
+
+                    this.articles = data as ArticlesType;
+
+                    this.pages = [];
+                    for (let i = 1; i <= this.articles.pages; i++) {
+                      this.pages.push( i );
+                    }
+                  },
+                  error: (errorResponse: HttpErrorResponse) => {
+                    if (errorResponse.error && errorResponse.error.error) {
+                      this._snackBar.open( errorResponse.error.message );
+                    } else {
+                      throw new Error( errorResponse.message );
+                    }
+                  }
+                } );
+            } );
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          if (errorResponse.error && errorResponse.error.error) {
+            this._snackBar.open( errorResponse.error.message );
+          } else {
+            throw new Error( errorResponse.message );
+          }
+        }
       } );
   }
 

@@ -113,22 +113,40 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   processPage(url: string): void {
     this.articleServiceGetArticleSubscription = this.articleService.getArticle( url )
-      .subscribe( (data: DefaultResponseType | DetailedArticleType) => {
-        SnackbarErrorUtil
-          .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
+      .subscribe( {
+        next: (data: DefaultResponseType | DetailedArticleType) => {
+          SnackbarErrorUtil
+            .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
-        this.article = data as DetailedArticleType;
-        this.getReactionsFullAndRefillReactionsForLoadedComments();
+          this.article = data as DetailedArticleType;
+          this.getReactionsFullAndRefillReactionsForLoadedComments();
 
-        this.articleServiceGetRelatedSubscription = this.articleService.getRelated( this.article.url )
-          .subscribe( (data: DefaultResponseType | ArticleType[]) => {
-            SnackbarErrorUtil
-              .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
+          this.articleServiceGetRelatedSubscription = this.articleService.getRelated( this.article.url )
+            .subscribe( {
+              next: (data: DefaultResponseType | ArticleType[]) => {
+                SnackbarErrorUtil
+                  .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
-            this.relatedArticles = data as ArticleType[];
-          } );
+                this.relatedArticles = data as ArticleType[];
+              },
+              error: (errorResponse: HttpErrorResponse) => {
+                if (errorResponse.error && errorResponse.error.error) {
+                  this._snackBar.open( errorResponse.error.message );
+                } else {
+                  this._snackBar.open( 'Ошибка регистрации' );
+                }
+              }
+            } );
 
-        this.getComments( this.currentOffset );
+          this.getComments( this.currentOffset );
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          if (errorResponse.error && errorResponse.error.error) {
+            this._snackBar.open( errorResponse.error.message );
+          } else {
+            throw new Error( errorResponse.message );
+          }
+        }
       } );
   }
 
@@ -136,24 +154,33 @@ export class ArticleComponent implements OnInit, OnDestroy {
     if (this.article) {
       this.showSpinner = true;
       this.commentServiceGetCommentsSubscription = this.commentService.getComments( offset, this.article.id )
-        .subscribe( (data: DefaultResponseType | CommentsType) => {
-          if (( data as DefaultResponseType ).error) {
-            this._snackBar.open( 'Не удалось загрузить комментарии, попробуйте позже' );
+        .subscribe( {
+          next: (data: DefaultResponseType | CommentsType) => {
+            if (( data as DefaultResponseType ).error) {
+              this._snackBar.open( 'Не удалось загрузить комментарии, попробуйте позже' );
+              this.showSpinner = false;
+              throw new Error( ( data as DefaultResponseType ).message );
+            }
+
+            const commentsData = data as CommentsType;
+            this.allCount = commentsData.allCount;
+
+            if (!this.currentOffset && commentsData.allCount > 3) {
+              commentsData.comments.splice( 3 );
+            }
+
+            this.comments = this.comments.concat( commentsData.comments );
+            this.currentOffset = this.comments.length;
+            this.refillReactionsForLoadedComments();
             this.showSpinner = false;
-            throw new Error( ( data as DefaultResponseType ).message );
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            if (errorResponse.error && errorResponse.error.error) {
+              this._snackBar.open( errorResponse.error.message );
+            } else {
+              throw new Error( errorResponse.message );
+            }
           }
-
-          const commentsData = data as CommentsType;
-          this.allCount = commentsData.allCount;
-
-          if (!this.currentOffset && commentsData.allCount > 3) {
-            commentsData.comments.splice( 3 );
-          }
-
-          this.comments = this.comments.concat( commentsData.comments );
-          this.currentOffset = this.comments.length;
-          this.refillReactionsForLoadedComments();
-          this.showSpinner = false;
         } );
     }
   }
@@ -162,13 +189,22 @@ export class ArticleComponent implements OnInit, OnDestroy {
     if (this.commentForm.valid && this.article) {
       this.commentServicePostCommentSubscription =
         this.commentService.postComment( this.commentForm.value.comment, this.article.id )
-          .subscribe( (data: DefaultResponseType) => {
-            SnackbarErrorUtil.showErrorMessageIfErrorHasBeenReceivedAndThrowError( data, this._snackBar );
+          .subscribe( {
+            next: (data: DefaultResponseType) => {
+              SnackbarErrorUtil.showErrorMessageIfErrorHasBeenReceivedAndThrowError( data, this._snackBar );
 
-            this.commentForm.reset();
-            this.comments = [];
-            this.currentOffset = 0;
-            this.getComments( this.currentOffset );
+              this.commentForm.reset();
+              this.comments = [];
+              this.currentOffset = 0;
+              this.getComments( this.currentOffset );
+            },
+            error: (errorResponse: HttpErrorResponse) => {
+              if (errorResponse.error && errorResponse.error.error) {
+                this._snackBar.open( errorResponse.error.message );
+              } else {
+                throw new Error( errorResponse.message );
+              }
+            }
           } );
     }
   }
@@ -176,68 +212,77 @@ export class ArticleComponent implements OnInit, OnDestroy {
   applyReaction(id: string, reaction: ReactionType): void {
     if (this.isLogged) {
       this.commentServiceGetActionsForCommentSubscription = this.commentService.getActionsForComment( id )
-        .subscribe( (data: DefaultResponseType | ReactionResponseType[]) => {
-          if (( data as DefaultResponseType ).error) {
-            this._snackBar.open( 'Произошла ошибка. Повторите позже' );
-            throw new Error( 'Failed to get user reaction to the comment' );
+        .subscribe( {
+          next: (data: DefaultResponseType | ReactionResponseType[]) => {
+            if (( data as DefaultResponseType ).error) {
+              this._snackBar.open( 'Произошла ошибка. Повторите позже' );
+              throw new Error( 'Failed to get user reaction to the comment' );
+            }
+
+            const foundedComment = this.comments.find( (comment: CommentType) => comment.id === id );
+            const actionsBefore = data as ReactionResponseType[];
+            const reactionBefore: ReactionType | undefined =
+              actionsBefore.length ? actionsBefore.find( res => res.comment === id )?.action : undefined;
+
+            this.commentServiceApplyReactionSubscription = this.commentService.applyReaction( id, reaction )
+              .subscribe( {
+                next: (data: DefaultResponseType) => {
+                  if (data.error) {
+                    this._snackBar.open( data.message );
+                  }
+
+                  if (reaction === ReactionType.violate) {
+                    this._snackBar.open( 'Жалоба отправлена' );
+                  }
+
+                  if (reaction === ReactionType.like || reaction === ReactionType.dislike) {
+                    this._snackBar.open( 'Ваш голос учтён' );
+                  }
+
+                  this.getReactionsFullAndRefillReactionsForLoadedComments();
+
+                  if (foundedComment && !actionsBefore.length && reaction === ReactionType.like) {
+                    foundedComment.likesCount++;
+                  }
+
+                  if (foundedComment && !actionsBefore.length && reaction === ReactionType.dislike) {
+                    foundedComment.dislikesCount++;
+                  }
+
+                  if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.like) {
+                    foundedComment.likesCount--;
+                  }
+
+                  if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.dislike) {
+                    foundedComment.dislikesCount--;
+                  }
+
+                  if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.like) {
+                    foundedComment.dislikesCount--;
+                    foundedComment.likesCount++;
+                  }
+
+                  if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.dislike) {
+                    foundedComment.likesCount--;
+                    foundedComment.dislikesCount++;
+                  }
+                },
+                error: (errorResponse: HttpErrorResponse) => {
+                  if (errorResponse.error && errorResponse.error.error) {
+                    this._snackBar.open( errorResponse.error.message );
+                  } else {
+                    throw new Error( errorResponse.message );
+                  }
+                }
+              } );
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            if (errorResponse.error && errorResponse.error.error) {
+              this._snackBar.open( errorResponse.error.message );
+            } else {
+              throw new Error( errorResponse.message );
+            }
           }
-
-          const foundedComment = this.comments.find( (comment: CommentType) => comment.id === id );
-          const actionsBefore = data as ReactionResponseType[];
-          const reactionBefore: ReactionType | undefined =
-            actionsBefore.length ? actionsBefore.find( res => res.comment === id )?.action : undefined;
-
-          this.commentServiceApplyReactionSubscription = this.commentService.applyReaction( id, reaction )
-            .subscribe( {
-              next: (data: DefaultResponseType) => {
-                if (data.error) {
-                  this._snackBar.open( data.message );
-                }
-
-                if (reaction === ReactionType.violate) {
-                  this._snackBar.open( 'Жалоба отправлена' );
-                }
-
-                if (reaction === ReactionType.like || reaction === ReactionType.dislike) {
-                  this._snackBar.open( 'Ваш голос учтён' );
-                }
-
-                this.getReactionsFullAndRefillReactionsForLoadedComments();
-
-                if (foundedComment && !actionsBefore.length && reaction === ReactionType.like) {
-                  foundedComment.likesCount++;
-                }
-
-                if (foundedComment && !actionsBefore.length && reaction === ReactionType.dislike) {
-                  foundedComment.dislikesCount++;
-                }
-
-                if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.like) {
-                  foundedComment.likesCount--;
-                }
-
-                if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.dislike) {
-                  foundedComment.dislikesCount--;
-                }
-
-                if (foundedComment && reactionBefore === ReactionType.dislike && reaction === ReactionType.like) {
-                  foundedComment.dislikesCount--;
-                  foundedComment.likesCount++;
-                }
-
-                if (foundedComment && reactionBefore === ReactionType.like && reaction === ReactionType.dislike) {
-                  foundedComment.likesCount--;
-                  foundedComment.dislikesCount++;
-                }
-              },
-              error: (errorResponse: HttpErrorResponse) => {
-                if (errorResponse.error && errorResponse.error.error) {
-                  this._snackBar.open( errorResponse.error.message );
-                } else {
-                  throw new Error( errorResponse.message );
-                }
-              }
-            } );
         } );
     }
   }
@@ -264,13 +309,22 @@ export class ArticleComponent implements OnInit, OnDestroy {
     if (this.article && this.isLogged) {
       this.commentServiceGetActionsForArticleCommentsSubscription =
         this.commentService.getActionsForArticleComments( this.article.id )
-          .subscribe( (data: DefaultResponseType | ReactionResponseType[]) => {
-            if (( data as DefaultResponseType ).error) {
-              throw new Error( 'Failed to get user reactions to the article comments' );
-            }
+          .subscribe( {
+            next: (data: DefaultResponseType | ReactionResponseType[]) => {
+              if (( data as DefaultResponseType ).error) {
+                throw new Error( 'Failed to get user reactions to the article comments' );
+              }
 
-            this.reactionsFull = data as ReactionResponseType[];
-            this.refillReactionsForLoadedComments();
+              this.reactionsFull = data as ReactionResponseType[];
+              this.refillReactionsForLoadedComments();
+            },
+            error: (errorResponse: HttpErrorResponse) => {
+              if (errorResponse.error && errorResponse.error.error) {
+                this._snackBar.open( errorResponse.error.message );
+              } else {
+                throw new Error( errorResponse.message );
+              }
+            }
           } );
     }
   }

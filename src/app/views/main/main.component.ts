@@ -14,6 +14,7 @@ import { SnackbarErrorUtil } from "../../shared/utils/snackbar-error.util";
 import { ModalComponent } from "../../shared/components/modal/modal.component";
 import { ModalService } from "../../shared/services/modal.service";
 import { CategoryName } from "../../../types/categories.type";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component( {
   selector: 'app-main',
@@ -42,11 +43,20 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.articleServiceSubscription = this.articleService.getPopular()
-      .subscribe( (data: DefaultResponseType | ArticleType[]) => {
-        SnackbarErrorUtil
-          .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
+      .subscribe( {
+        next: (data: DefaultResponseType | ArticleType[]) => {
+          SnackbarErrorUtil
+            .showErrorMessageIfErrorHasBeenReceivedAndThrowError( data as DefaultResponseType, this._snackBar );
 
-        this.articles = data as ArticleType[];
+          this.articles = data as ArticleType[];
+        },
+        error: (errorResponse: HttpErrorResponse) => {
+          if (errorResponse.error && errorResponse.error.error) {
+            this._snackBar.open( errorResponse.error.message );
+          } else {
+            throw new Error( errorResponse.message );
+          }
+        }
       } );
   }
 

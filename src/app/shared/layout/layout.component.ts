@@ -21,13 +21,13 @@ export class LayoutComponent implements AfterContentInit {
 
   scrollToTheHeader(): void {
     if (this.header) {
-      this.header.scrollIntoView( { behavior: 'smooth', block: 'start', inline: 'nearest' } );
+      this.header.scrollIntoView( { behavior: 'smooth' } );
     }
   }
 
   scrollToTheFooter(): void {
     if (this.footer) {
-      this.footer.scrollIntoView( { behavior: 'smooth', block: 'start', inline: 'nearest' } );
+      this.footer.scrollIntoView( { behavior: 'smooth' } );
     }
   }
 }
