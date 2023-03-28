@@ -6,6 +6,7 @@
   .layout__to-the-header, .layout__to-the-footer {
     position: fixed;
     right: 20px;
+    z-index: 10;
 
     width: 40px;
     height: 40px;

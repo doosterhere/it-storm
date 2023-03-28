@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { NavigationEnd, NavigationSkipped, Router } from "@angular/router";
+import { HttpErrorResponse } from "@angular/common/http";
 import { Subscription } from "rxjs";
 
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -8,7 +9,6 @@ import { AuthService } from "../../../core/auth/auth.service";
 import { UserService } from "../../services/user.service";
 import { DefaultResponseType } from "../../../../types/default-response.type";
 import { UserInfoType } from "../../../../types/user-info.type";
-import { HttpErrorResponse } from "@angular/common/http";
 
 @Component( {
   selector: 'app-header',
@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authServiceIsLogged$Subscription: Subscription | null;
   authServiceLogoutSubscription: Subscription | null;
   userServiceGetUserInfoSubscription: Subscription | null;
+  id: string | null;
 
   constructor(private router: Router,
               private authService: AuthService,
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isLogged = this.authService.isLogged;
     this.userName = '';
     this.timeout = null;
+    this.id = null;
     this.authServiceIsLogged$Subscription = null;
     this.authServiceLogoutSubscription = null;
     this.userServiceGetUserInfoSubscription = null;
@@ -101,12 +103,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   followTheLink(url: string, id?: string): void {
+    if (id) {
+      this.id = id;
+    } else {
+      this.id = null;
+    }
+
     this.router.navigate( [url] ).then( () => {
-      if (id) {
-        this.timeout = window.setTimeout( () => {
-          const element = document.getElementById( id );
-          element?.scrollIntoView( { behavior: 'smooth' } );
-        }, 100 );
+      if (this.id) {
+        const subscription = this.router.events.subscribe( event => {
+          if (( event instanceof NavigationEnd || event instanceof NavigationSkipped ) && this.id) {
+            const element = document.getElementById( this.id );
+            element?.scrollIntoView( { behavior: 'smooth' } );
+            subscription.unsubscribe();
+          }
+        } );
       }
     } );
   }

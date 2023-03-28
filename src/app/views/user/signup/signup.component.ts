@@ -19,6 +19,7 @@ import { SnackbarErrorUtil } from "../../../shared/utils/snackbar-error.util";
 export class SignupComponent implements OnDestroy {
   passwordIsVisible: boolean;
   confirmPasswordIsVisible: boolean;
+  timeout: number | null;
   readonly nameValidatorPattern = /^([А-Я][а-яё]{1,23})(\s[А-Я][а-яё]{0,23})*$/;
   readonly emailValidatorPattern = /^[^$!#^\-_*'%?]*[a-z0-9\-_.]{1,64}@[a-z0-9.-]{1,253}\.[a-z]{2,}$/i;
   readonly passwordValidatorPattern = /^(?=.*\d)(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
@@ -31,6 +32,7 @@ export class SignupComponent implements OnDestroy {
               private router: Router) {
     this.passwordIsVisible = false;
     this.confirmPasswordIsVisible = false;
+    this.timeout = null;
     this.authServiceSignupSubscription = null;
     this.authForm = this.fb.group( {
       name: ['', [Validators.required, Validators.pattern( this.nameValidatorPattern )]],
@@ -43,6 +45,9 @@ export class SignupComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.authServiceSignupSubscription?.unsubscribe();
+    if (this.timeout) {
+      window.clearTimeout( this.timeout );
+    }
   }
 
   signup(): void {
@@ -84,7 +89,14 @@ export class SignupComponent implements OnDestroy {
     this.confirmPasswordIsVisible = !this.confirmPasswordIsVisible;
   }
 
-  followTheLink(url: string): void {
-    this.router.navigate( [url] );
+  followTheLink(url: string, id?: string): void {
+    this.router.navigate( [url] ).then( () => {
+      if (id) {
+        this.timeout = window.setTimeout( () => {
+          const element = document.getElementById( id );
+          element?.scrollIntoView( { behavior: 'smooth' } );
+        }, 100 );
+      }
+    } );
   }
 }

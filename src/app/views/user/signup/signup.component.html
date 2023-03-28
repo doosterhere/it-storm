@@ -43,8 +43,8 @@
           <div class="auth__form-checkbox">
             <input type="checkbox" formControlName="checkbox">
             <span>
-            Я принимаю <a routerLink="/terms" fragment="userAgreement">условия пользовательского соглашения</a>
-            и даю <a routerLink="/terms" fragment="personalDataProcessing">согласие на обработку персональных данных</a>.
+            Я принимаю <a (click)="followTheLink('/terms', 'userAgreement')">условия пользовательского соглашения</a>
+            и даю <a (click)="followTheLink('/terms', 'personalDataProcessing')">согласие на обработку персональных данных</a>.
           </span>
           </div>
 
