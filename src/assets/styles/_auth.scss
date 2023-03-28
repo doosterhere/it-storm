@@ -38,6 +38,8 @@
         }
 
         .auth__form-input {
+          position: relative;
+
           margin-bottom: 5px;
 
           input {
@@ -66,6 +68,8 @@
               font-size: 14px;
               line-height: 130%;
               color: $color-lightblue;
+
+              cursor: pointer;
             }
           }
         }

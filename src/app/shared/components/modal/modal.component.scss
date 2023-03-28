@@ -1,5 +1,6 @@
 @import "../../../../assets/styles/variables";
 @import "../../../../assets/styles/mixins";
+@import "../../../../assets/styles/global";
 
 .popup {
   position: relative;
@@ -36,6 +37,14 @@
       flex-direction: column;
       gap: 5px;
       width: 422px;
+
+      .form-input {
+        position: relative;
+
+        .input {
+          width: 100%;
+        }
+      }
     }
 
     .popup__text {

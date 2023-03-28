@@ -177,3 +177,21 @@ input[type='checkbox'] {
     }
   }
 }
+
+.input-warning {
+  position: absolute;
+  left: 11px;
+  top: 40px;
+  z-index: 1;
+
+  padding: 0 2px;
+  width: 400px;
+  border: 1px solid $color-warning;
+  border-radius: 3px;
+  box-sizing: border-box;
+
+  font-size: 12px;
+  color: $color-warning;
+
+  background-color: $color-white;
+}

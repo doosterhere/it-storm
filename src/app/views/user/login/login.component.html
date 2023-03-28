@@ -13,6 +13,10 @@
             <input class="input" type="email" placeholder="Электронная почта" formControlName="email"
                    [ngStyle]="{'border-color': authForm.get('email')?.invalid &&
                    (authForm.get('email')?.dirty || authForm.get('email')?.touched) ? 'red' : ''}">
+            <div class="input-warning" [ngStyle]="{'display': authForm.get('email')?.invalid &&
+                   (authForm.get('email')?.dirty || authForm.get('email')?.touched) ? 'block' : 'none'}">
+              Введите адрес в формате address@server.domain
+            </div>
           </div>
 
           <div class="auth__form-input">
@@ -20,6 +24,10 @@
                    formControlName="password"
                    [ngStyle]="{'border-color': authForm.get('password')?.invalid &&
                    (authForm.get('password')?.dirty || authForm.get('password')?.touched) ? 'red' : ''}">
+            <div class="input-warning" [ngStyle]="{'display': authForm.get('password')?.invalid &&
+                   (authForm.get('password')?.dirty || authForm.get('password')?.touched) ? 'block' : 'none'}">
+              Пароль не может быть пустым
+            </div>
           </div>
 
           <div class="auth__form-checkbox">

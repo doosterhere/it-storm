@@ -17,6 +17,10 @@
             <input class="input" type="text" placeholder="Ваше имя" formControlName="name"
                    [ngStyle]="{'border-color': authForm.get('name')?.invalid &&
                    (authForm.get('name')?.dirty || authForm.get('name')?.touched) ? 'red' : ''}">
+            <div class="input-warning" [ngStyle]="{'display': authForm.get('name')?.invalid &&
+                   (authForm.get('name')?.dirty || authForm.get('name')?.touched) ? 'block' : 'none'}">
+              Имя должно быть написано кириллицей с заглавной буквы
+            </div>
           </div>
 
           <div class="auth__form-input">
@@ -24,6 +28,10 @@
                    autocomplete="new-email"
                    [ngStyle]="{'border-color': authForm.get('email')?.invalid &&
                    (authForm.get('email')?.dirty || authForm.get('email')?.touched) ? 'red' : ''}">
+            <div class="input-warning" [ngStyle]="{'display': authForm.get('email')?.invalid &&
+                   (authForm.get('email')?.dirty || authForm.get('email')?.touched) ? 'block' : 'none'}">
+              Введите адрес в формате address@server.domain
+            </div>
           </div>
 
           <div class="auth__form-input">
@@ -31,6 +39,10 @@
                    formControlName="password" autocomplete="new-password"
                    [ngStyle]="{'border-color': authForm.get('password')?.invalid &&
                    (authForm.get('password')?.dirty || authForm.get('password')?.touched) ? 'red' : ''}">
+            <div class="input-warning" [ngStyle]="{'display': authForm.get('password')?.invalid &&
+                   (authForm.get('password')?.dirty || authForm.get('password')?.touched) ? 'block' : 'none'}">
+              Введите не менее 8-ми латинских символов, в том числе заглавную букву и цифру
+            </div>
           </div>
 
           <div class="auth__form-input">
@@ -38,6 +50,10 @@
                    placeholder="Повторите пароль" formControlName="confirmPassword" autocomplete="new-password"
                    [ngStyle]="{'border-color': authForm.get('confirmPassword')?.invalid &&
                    (authForm.get('confirmPassword')?.dirty || authForm.get('confirmPassword')?.touched) ? 'red' : ''}">
+            <div class="input-warning" [ngStyle]="{'display': authForm.get('confirmPassword')?.invalid &&
+                   (authForm.get('confirmPassword')?.dirty || authForm.get('confirmPassword')?.touched) ? 'block' : 'none'}">
+              Пароли не совпадают
+            </div>
           </div>
 
           <div class="auth__form-checkbox">

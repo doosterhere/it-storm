@@ -16,13 +16,25 @@
           {{ category.name }}
         </mat-option>
       </mat-select>
-      <input class="input" type="text" placeholder="Ваше имя" formControlName="name"
-             [ngStyle]="{'border-color': requestForm.get('name')?.invalid &&
+      <div class="form-input">
+        <input class="input" type="text" placeholder="Ваше имя" formControlName="name"
+               [ngStyle]="{'border-color': requestForm.get('name')?.invalid &&
              (requestForm.get('name')?.dirty || requestForm.get('name')?.touched) ? 'red' : ''}">
-      <input class="input" type="text" placeholder="Ваш номер телефона" formControlName="phone"
-             mask="+0 (000) 000-00-00"
-             [ngStyle]="{'border-color': requestForm.get('phone')?.invalid &&
+        <div class="input-warning" [ngStyle]="{'display': requestForm.get('name')?.invalid &&
+                   (requestForm.get('name')?.dirty || requestForm.get('name')?.touched) ? 'block' : 'none'}">
+          Имя должно быть написано кириллицей с заглавной буквы
+        </div>
+      </div>
+      <div class="form-input">
+        <input class="input" type="text" placeholder="Ваш номер телефона" formControlName="phone"
+               mask="+0 (000) 000-00-00"
+               [ngStyle]="{'border-color': requestForm.get('phone')?.invalid &&
              (requestForm.get('phone')?.dirty || requestForm.get('phone')?.touched) ? 'red' : ''}">
+        <div class="input-warning" [ngStyle]="{'display': requestForm.get('phone')?.invalid &&
+                   (requestForm.get('phone')?.dirty || requestForm.get('phone')?.touched) ? 'block' : 'none'}">
+          Введите номер в формате +7(XXX)XXX-XX-XX
+        </div>
+      </div>
     </div>
 
     <button type="button" class="button" (click)="requestCallback()">Заказать консультацию</button>
