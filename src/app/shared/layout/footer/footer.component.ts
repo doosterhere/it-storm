@@ -35,7 +35,7 @@ export class FooterComponent implements OnDestroy {
     this.router.navigate( [url] ).then( () => {
       if (id) {
         this.timeout = window.setTimeout( () => {
-          const element = document.getElementById( id );
+          const element: HTMLElement | null = document.getElementById( id );
           element?.scrollIntoView( { behavior: 'smooth' } );
         }, 100 );
       }

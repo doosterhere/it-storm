@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  api: "http://localhost:3000/api/",
-  serverStaticPath: "http://localhost:3000/images/"
+  api: "https://good-red-dugong-wig.cyclic.app/api/",
+  serverStaticPath: "https://good-red-dugong-wig.cyclic.app/images/"
 }
