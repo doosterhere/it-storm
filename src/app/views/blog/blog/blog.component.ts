@@ -174,7 +174,7 @@ export class BlogComponent implements OnInit, OnDestroy {
       return;
     }
 
-    //it's for <svg>, <path>, <line>, <rect> etc.
+    // it's for <svg>, <path>, <line>, <rect> etc.
     if (!target.parentElement?.classList.value) {
       this.filterSelectorOpen = false;
       return;

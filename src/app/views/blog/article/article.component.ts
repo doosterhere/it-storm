@@ -24,7 +24,7 @@ import { ReactionResponseType, ReactionType } from "../../../../types/reaction-r
   encapsulation: ViewEncapsulation.None
 } )
 export class ArticleComponent implements OnInit, OnDestroy {
-  serverStaticPath = environment.serverStaticPath;
+  serverStaticPath: string = environment.serverStaticPath;
   isLogged: boolean;
   showSpinner: boolean;
   article: DetailedArticleType | null;

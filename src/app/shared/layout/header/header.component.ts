@@ -103,34 +103,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   followTheLink(url: string, id?: string): void {
-    // this.router.navigate( [url] ).then( () => {
-    //   if (id) {
-    //     this.router.events.subscribe( event => {
-    //       console.log( event, id );
-    //       if (event instanceof NavigationEnd || event instanceof NavigationSkipped) {
-    //         const element = document.getElementById( id ) as HTMLElement;
-    //         element?.scrollIntoView( { behavior: "smooth" } );
-    //       }
-    //     } );
-    //   }
-    // } );
-
-    if (id) {
-      this.id = id;
-    } else {
-      this.id = ''
-    }
-
     this.router.navigate( [url] ).then( () => {
-      if (this.id) {
-        const subscription = this.router.events.subscribe( event => {
-          console.log( event, id, this.id );
-          if (( event instanceof NavigationEnd || event instanceof NavigationSkipped ) && this.id) {
-            const element = document.getElementById( this.id );
-            element?.scrollIntoView( { behavior: 'smooth' } );
-            subscription.unsubscribe();
-          }
-        } );
+      if (id) {
+        this.timeout = window.setTimeout( () => {
+          const element: HTMLElement | null = document.getElementById( id );
+          element?.scrollIntoView( { behavior: 'smooth' } );
+        }, 100 );
       }
     } );
   }
