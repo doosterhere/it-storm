@@ -1,0 +1,197 @@
+@import "variables";
+@import "mixins";
+
+html, body {
+  margin: 0;
+  padding: 0;
+
+  font-family: "Montserrat", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: $color-text-primary;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  > .ng-star-inserted {
+    flex-grow: 1;
+  }
+}
+
+a:hover,
+a:hover path,
+a:hover ~ svg path,
+.mat-mdc-menu-trigger:hover {
+  color: $color-hover !important;
+  fill: $color-hover !important;
+}
+
+.container {
+  max-width: $container-width;
+  margin: 0 auto;
+}
+
+.button {
+  padding: 15px 0;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  color: $color-white;
+
+  background-color: $color-lightblue;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &.button_small {
+    padding: 10px 0;
+
+    font-size: 12px;
+  }
+
+  &:hover {
+    background-color: $color-hover;
+  }
+
+  &:disabled {
+    background-color: $color-lightgray;
+    cursor: not-allowed;
+  }
+}
+
+.mat-mdc-menu-content .mat-mdc-menu-item span.mdc-list-item__primary-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  color: $color-text-primary;
+  letter-spacing: unset;
+  text-align: right;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 10px !important;
+  border: 2px solid $color-lightblue;
+}
+
+.mat-menu-overlay-with-margin-top {
+  margin-top: 10px;
+}
+
+.mat-mdc-select-value {
+  line-height: 18px;
+}
+
+.mat-mdc-select-arrow-wrapper {
+  display: none !important;
+}
+
+.mat-mdc-option {
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: $color-lightblue;
+}
+
+.input, .mat-mdc-select.custom-mat-select .mat-mdc-select-value, {
+  padding: 17px 20px;
+  box-sizing: border-box;
+  border: 2px solid $color-lightblue;
+  border-radius: 3px;
+
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: $color-text-primary;
+
+  outline: none;
+
+  &:hover, &:focus {
+    border-color: $color-hover;
+  }
+
+  &::placeholder {
+    color: $color-placeholder;
+  }
+}
+
+input[type='checkbox'] {
+  cursor: pointer;
+}
+
+
+.owl-theme .owl-dots {
+  position: absolute;
+  bottom: 15px;
+
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .owl-dot {
+    span {
+      margin: 0 10px;
+      border-radius: 50%;
+      box-sizing: border-box;
+      border: 1px solid $color-white;
+
+      background: transparent;
+    }
+
+    &:hover {
+      span {
+        background: $color-hover;
+      }
+    }
+
+    &.active {
+      span {
+        background: $color-white;
+      }
+    }
+  }
+}
+
+.carousel {
+  position: relative;
+
+  .carousel__arrows {
+    .arrow-backward, .arrow-forward {
+      position: absolute;
+      z-index: 2;
+
+      cursor: pointer;
+    }
+  }
+}
+
+.input-warning {
+  position: absolute;
+  left: 11px;
+  top: 40px;
+  z-index: 1;
+
+  padding: 0 2px;
+  width: 400px;
+  border: 1px solid $color-warning;
+  border-radius: 3px;
+  box-sizing: border-box;
+
+  font-size: 12px;
+  color: $color-warning;
+
+  background-color: $color-white;
+}
