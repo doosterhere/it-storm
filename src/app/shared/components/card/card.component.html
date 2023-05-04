@@ -2,7 +2,7 @@
   <div class="card-category" *ngIf="!isServiceCard">{{ article.category }}</div>
 
   <div class="card-image" *ngIf="isServiceCard"
-       style="background-image: url('../../../../assets/images/pages/main/{{ article.image }}')"></div>
+       style="background-image: url('./assets/images/pages/main/{{ article.image }}')"></div>
   <div class="card-image" *ngIf="!isServiceCard"
        style="background-image: url('{{ serverStaticPath + article.image }}')"></div>
 

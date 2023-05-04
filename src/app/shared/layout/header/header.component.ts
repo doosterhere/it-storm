@@ -108,7 +108,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.timeout = window.setTimeout( () => {
           const element: HTMLElement | null = document.getElementById( id );
           element?.scrollIntoView( { behavior: 'smooth' } );
-        }, 100 );
+        }, 200 );
       }
     } );
   }
