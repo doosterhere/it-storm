@@ -4,8 +4,10 @@
 
   .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 20px;
     min-height: calc(100vh - 427px);
 
     font-family: 'Lora', sans-serif;
@@ -14,5 +16,24 @@
     font-size: 64px;
     color: $color-lightblue;
     text-align: center;
+
+    a {
+      font-family: "Montserrat", sans-serif;
+      font-size: 18px;
+      color: $color-text-primary;
+      text-decoration: none;
+
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .page-not-found {
+    .container {
+      min-height: calc(100vh - 275px);
+
+      font-size: 42px;
+    }
   }
 }

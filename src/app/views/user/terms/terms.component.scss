@@ -24,3 +24,15 @@
     }
   }
 }
+
+@media screen and (max-width: 425px) {
+  .terms {
+    .container {
+      .term {
+        .terms__title {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

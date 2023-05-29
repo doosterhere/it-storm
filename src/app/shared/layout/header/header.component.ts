@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, NavigationSkipped, Router } from "@angular/router";
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Subscription } from "rxjs";
 
@@ -23,6 +23,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authServiceLogoutSubscription: Subscription | null;
   userServiceGetUserInfoSubscription: Subscription | null;
   id: string | null;
+  mobileMenuVisibility: boolean;
+  screenWidth: number;
 
   constructor(private router: Router,
               private authService: AuthService,
@@ -32,12 +34,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userName = '';
     this.timeout = null;
     this.id = null;
+    this.mobileMenuVisibility = false;
+    this.screenWidth = 0;
     this.authServiceIsLogged$Subscription = null;
     this.authServiceLogoutSubscription = null;
     this.userServiceGetUserInfoSubscription = null;
   }
 
   ngOnInit(): void {
+    this.screenWidth = window.innerWidth;
+
     this.authServiceIsLogged$Subscription = this.authService.isLogged$
       .subscribe( (isLogged: boolean) => {
         this.isLogged = isLogged;
@@ -80,6 +86,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   menuClick(): void {
+    if (this.screenWidth <= 767) {
+      this.changeMobileMenuVisibility();
+    }
+
     if (this.isLogged) {
       this.authServiceLogoutSubscription = this.authService.logout()
         .subscribe( {
@@ -103,13 +113,47 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   followTheLink(url: string, id?: string): void {
+    if (this.mobileMenuVisibility) {
+      this.changeMobileMenuVisibility();
+    }
+
     this.router.navigate( [url] ).then( () => {
       if (id) {
         this.timeout = window.setTimeout( () => {
           const element: HTMLElement | null = document.getElementById( id );
           element?.scrollIntoView( { behavior: 'smooth' } );
-        }, 200 );
+        }, 250 );
       }
     } );
+  }
+
+  changeMobileMenuVisibility(): void {
+    this.mobileMenuVisibility = !this.mobileMenuVisibility;
+
+    if (this.mobileMenuVisibility) {
+      this.disableScroll();
+      return;
+    }
+
+    this.enableScroll();
+  }
+
+  disableScroll(): void {
+    const scrollTop: number = document.documentElement.scrollTop;
+    const scrollLeft: number = document.documentElement.scrollLeft;
+
+    window.onscroll = function (): void {
+      window.scrollTo( scrollLeft, scrollTop );
+    }
+  }
+
+  enableScroll(): void {
+    window.onscroll = function (): void {
+    };
+  }
+
+  @HostListener( 'window:resize', ['$event'] )
+  onWindowResize() {
+    this.screenWidth = window.innerWidth;
   }
 }

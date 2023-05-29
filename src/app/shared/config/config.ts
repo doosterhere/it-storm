@@ -4,8 +4,8 @@ export const Config = {
   bannersCarouselOptions: {
     loop: true,
     mouseDrag: true,
-    touchDrag: false,
-    pullDrag: false,
+    touchDrag: true,
+    pullDrag: true,
     dots: true,
     margin: 0,
     navSpeed: 700,
@@ -19,22 +19,22 @@ export const Config = {
   },
   feedbacksCarouselOptions: {
     loop: true,
-    mouseDrag: false,
-    touchDrag: false,
-    pullDrag: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
     dots: false,
-    margin: 24,
     navSpeed: 700,
     responsive: {
       0: {
         items: 1
       },
-      400: {
-        items: 2
+      850: {
+        items: 2,
+        margin: 24
       },
-      740: {
+      1240: {
         items: 3
-      }
+      },
     },
     nav: false
   },

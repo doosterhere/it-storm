@@ -1,10 +1,11 @@
 <div class="header" id="header">
   <div class="container">
-    <a class="header__logo" (click)="followTheLink('/')">
+    <a href="#" class="header__logo">
       <img src="./assets/images/Logotype.png" alt="logo">
     </a>
 
-    <div class="header__menu">
+    <div class="header__menu"
+         [ngStyle]="{'display' : screenWidth > 767 || (screenWidth <= 767 && mobileMenuVisibility) ? 'block' : 'none'}">
       <nav>
         <ul>
           <li>
@@ -21,6 +22,14 @@
           </li>
           <li>
             <a (click)="followTheLink('/', 'contacts')">Контакты</a>
+          </li>
+          <li class="header__menu-personal">
+            <a (click)="menuClick()">{{ isLogged ? 'Выйти' : 'Войти' }}</a>
+          </li>
+          <li class="header__menu-cross" (click)="changeMobileMenuVisibility()">
+            <mat-icon class="header__menu-cross-icon">
+              close
+            </mat-icon>
           </li>
         </ul>
       </nav>
@@ -47,6 +56,13 @@
           <span>{{ isLogged ? 'Выйти' : 'Войти' }}</span>
         </button>
       </mat-menu>
+    </div>
+
+    <div class="header__mobile-menu-button" (click)="changeMobileMenuVisibility()">
+      <mat-icon [ngStyle]="{'color': isLogged ? '#709FDC' : 'black',
+                                              'display': mobileMenuVisibility ? 'none' : 'block'}">
+        menu
+      </mat-icon>
     </div>
   </div>
 </div>

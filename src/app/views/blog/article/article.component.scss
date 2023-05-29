@@ -454,3 +454,110 @@
     }
   }
 }
+
+@media screen and (max-width: 1300px) {
+  .article {
+    .container {
+      .article__head {
+        gap: 30px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .article {
+    padding: 40px 0 60px;
+
+    .container {
+      .article__breadcrumbs {
+        margin-bottom: 40px;
+        align-items: flex-start;
+      }
+
+      .article__head {
+        margin-bottom: 40px;
+        flex-direction: column-reverse;
+
+        .article__head-description {
+          max-width: unset;
+
+          .article__title {
+            font-size: 32px;
+          }
+        }
+
+        .article__head-image {
+          width: 100%;
+        }
+      }
+
+      .article__body {
+        flex-direction: column;
+        gap: 30px;
+
+        .article__body-main {
+          .article__body-main-text {
+            p, li {
+              font-size: 16px;
+            }
+          }
+
+          .article__body-text-block-social {
+            a {
+              font-size: 16px;
+            }
+          }
+
+          .article__body-comment-no-login-text {
+            font-size: 16px;
+
+            a {
+              font-size: 16px;
+            }
+          }
+
+          .article__body-comment-form {
+            textarea {
+              font-size: 16px;
+
+              &::placeholder {
+                font-size: 16px;
+              }
+            }
+
+            .button {
+              width: 100%;
+            }
+          }
+
+          .article__body-comments {
+            .article__body-comment {
+              .article__body-comment-head {
+                .article__body-comment-info {
+                  .article__body-comment-date {
+                    font-size: 16px;
+                  }
+                }
+              }
+
+              .article__body-comment-text {
+                font-size: 16px;
+              }
+            }
+          }
+        }
+
+        .article__body-related-articles {
+          padding-top: 10px;
+
+          .article__body-related-articles-cards {
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+        }
+      }
+    }
+  }
+}

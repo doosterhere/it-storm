@@ -3,6 +3,10 @@
 .layout {
   position: relative;
 
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
   .layout__to-the-header, .layout__to-the-footer {
     position: fixed;
     right: 20px;
@@ -38,4 +42,3 @@
     bottom: 20px;
   }
 }
-

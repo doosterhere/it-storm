@@ -106,7 +106,7 @@
           @include title-lora-38;
         }
 
-        .main__about_text {
+        .main__about-text {
           margin-bottom: 40px;
           max-width: 633px;
 
@@ -236,6 +236,11 @@
           }
         }
 
+        div:has(> .carousel__slide) {
+          display: flex;
+          justify-content: space-evenly;
+        }
+
         .carousel__slide {
           padding: 30px;
           width: 396px;
@@ -322,3 +327,514 @@
     }
   }
 }
+
+@media screen and (max-width: 1299px) {
+  .main {
+    padding-bottom: 100px;
+
+    .container {
+      .main__banners {
+        margin-bottom: 100px;
+      }
+
+      .main__services {
+        margin-bottom: 100px;
+
+        .main___services-cards {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-row-gap: 40px;
+          justify-items: start;
+
+          & > .ng-star-inserted:nth-child(odd) {
+            justify-self: end;
+          }
+        }
+      }
+
+      .main__about {
+        margin-bottom: 100px;
+        justify-content: unset;
+
+        .main__about-image {
+          display: flex;
+          align-items: center;
+        }
+
+        .main__about-info {
+          .main__about-advantages-cards {
+            display: flex;
+            flex-direction: column;
+
+            .main__about-advantages-card {
+              align-items: flex-start;
+
+              .main__about-advantages-card-number {
+                flex-grow: 0;
+              }
+            }
+          }
+        }
+      }
+
+      .main__popular {
+        margin-bottom: 100px;
+
+        .main__popular-cards {
+          grid-template-columns: repeat(2, 1fr);
+          grid-row-gap: 40px;
+
+          & > .ng-star-inserted:nth-child(odd) {
+            justify-self: end;
+          }
+        }
+      }
+
+      .main__feedbacks {
+        margin-bottom: 100px;
+
+        .carousel {
+          .carousel__arrows {
+            .arrow-backward, .arrow-forward {
+              left: calc(50% - 396px - 45px);
+            }
+
+            .arrow-forward {
+              left: unset;
+              right: calc(50% - 396px - 45px);
+            }
+          }
+
+          div:has(> .carousel__slide) {
+            justify-content: flex-start;
+
+            &:nth-child(odd) {
+              justify-content: flex-end;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1190px) {
+  .main {
+    .container {
+      .main__banners {
+        .carousel {
+          .carousel__slide {
+            padding: 100px 0 0 50px;
+
+            background-position: -112px, right;
+
+            .carousel__slide-title {
+              max-width: 550px;
+
+              font-size: 45px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .main {
+    padding-bottom: 90px;
+
+    .container {
+      .main__banners {
+        .carousel {
+          .carousel__slide {
+            background-position: -240px, right;
+
+            .carousel__slide-title {
+              max-width: 390px;
+
+              font-size: 36px;
+            }
+
+            .carousel__slide-text {
+              max-width: 360px;
+            }
+          }
+        }
+      }
+
+      .main__contacts {
+        .main__contacts-map {
+          iframe {
+            width: 360px;
+            height: 390px;
+          }
+        }
+
+        .main__contacts-info {
+          .main__contacts-info-title {
+            margin-bottom: 20px;
+
+            @include title-lora-38;
+          }
+
+          .main__contacts-info-subtitle {
+            margin-bottom: 10px;
+
+            font-weight: 500;
+            font-size: 20px;
+            color: $color-lightblue;
+          }
+
+          .main__contacts-info-text {
+            margin-bottom: 20px;
+            max-width: 100%;
+
+            font-size: 14px;
+
+            a {
+              color: $color-text-primary;
+              text-decoration: none;
+            }
+          }
+
+          .main__contacts-info-icons {
+            display: flex;
+            gap: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 889px) {
+  .main {
+    .container {
+      .main__banners {
+        margin-bottom: 60px;
+
+        .carousel {
+          .carousel__arrows {
+            display: none;
+          }
+
+          .carousel__slide {
+            padding: 30px;
+            height: 450px;
+
+            background-position: left, right;
+            background-image: none !important;
+            background-color: $color-background;
+
+            .carousel__slide-pre-title {
+              font-size: 16px;
+              margin-bottom: 10px;
+            }
+
+            .carousel__slide-title {
+              max-width: 360px;
+              flex-grow: 1;
+
+              font-size: 36px;
+            }
+
+            .carousel__slide-text {
+              margin-top: 20px;
+              max-width: 345px;
+              flex-grow: 5;
+
+              font-size: 24px;
+              line-height: 130%;
+              color: $color-white;
+            }
+
+            .button {
+              margin-top: 50px;
+              width: 100%;
+              margin-bottom: 10px;
+            }
+          }
+        }
+      }
+
+      .main__services {
+        .main__services-title {
+          text-align: center;
+        }
+      }
+
+      .main__about {
+        margin-bottom: 60px;
+        flex-direction: column;
+        gap: 40px;
+
+        .main__about-image {
+          display: block;
+          text-align: center;
+        }
+
+        .main__about-info {
+          .main__about-title {
+            text-align: center;
+          }
+
+          .main__about-text {
+            max-width: unset;
+
+            font-size: 18px;
+          }
+
+          .main__about-advantages-title {
+            font-size: 28px;
+            text-align: center;
+          }
+
+          .main__about-advantages-cards {
+            display: grid;
+            grid-template: 1fr 1fr / 1fr 1fr;
+            grid-gap: 20px 71px;
+          }
+        }
+      }
+
+      .main__feedbacks {
+        .main__feedbacks-title {
+          text-align: center;
+        }
+
+        .carousel {
+          .carousel__arrows {
+            .arrow-backward, .arrow-forward {
+              left: calc(50% - 396px / 2 - 35px);
+            }
+
+            .arrow-forward {
+              left: unset;
+              right: calc(50% - 396px / 2 - 35px);
+            }
+          }
+
+          div:has(> .carousel__slide) {
+            justify-content: center;
+
+            &:nth-child(odd) {
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .main {
+    padding-bottom: 60px;
+
+    .container {
+      .main__services {
+        margin-bottom: 60px;
+
+        .main__services-title {
+          margin-bottom: 40px;
+        }
+
+        .main___services-cards {
+          display: grid;
+          grid-template-columns: unset;
+          grid-column-gap: unset;
+          grid-template-rows: repeat(4, 1fr);
+          grid-row-gap: 50px;
+          justify-content: center;
+        }
+      }
+
+      .main__about {
+        .main__about-image {
+          img {
+            width: 100%;
+          }
+        }
+
+        .main__about-info {
+          .main__about-text {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 500px;
+          }
+
+          .main__about-advantages-cards {
+            grid-template: 4fr / 1fr;
+            grid-column-gap: 0;
+            justify-items: center;
+
+            .main__about-advantages-card {
+              .main__about-advantages-card-number {
+                width: 60px;
+
+                &:after {
+                  right: 10px;
+                }
+              }
+
+              .main__about-advantages-card-text {
+                max-width: 285px;
+
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      }
+
+      .main__popular {
+        margin-bottom: 60px;
+
+        .main__popular-title {
+          margin-bottom: 40px;
+
+          text-align: center;
+        }
+
+        .main__popular-cards {
+          margin-bottom: 40px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 40px;
+        }
+      }
+
+      .main__feedbacks {
+        margin-bottom: 60px;
+
+        .carousel {
+          .carousel__arrows {
+            display: none;
+          }
+        }
+      }
+
+      .main__contacts {
+        .main__contacts-map {
+          display: none;
+        }
+
+        .main__contacts-info {
+          .main__contacts-info-title {
+            text-align: center;
+          }
+
+          .main__contacts-info-text {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .main {
+    .container {
+      .main__banners {
+        .carousel {
+          .carousel__slide {
+            .carousel__slide-title {
+              font-size: 32px;
+            }
+
+            .carousel__slide-text {
+              font-size: 20px;
+            }
+
+            .button {
+              margin-top: 35px;
+            }
+          }
+        }
+      }
+
+      .main__about {
+        .main__about-info {
+          .main__about-advantages-cards {
+            .main__about-advantages-card {
+              .main__about-advantages-card-text {
+                max-width: 231px;
+              }
+            }
+          }
+        }
+      }
+
+      .main__feedbacks {
+        .carousel {
+          .carousel__slide {
+            width: 100%;
+            height: 310px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .main {
+    .container {
+      .main__services {
+        .main__services-title {
+          font-size: 34px;
+        }
+      }
+
+      .main__about {
+        .main__about-info {
+          .main__about-title {
+            font-size: 34px;
+          }
+
+          .main__about-text {
+            font-size: 16px;
+          }
+
+          .main__about-advantages-cards {
+            .main__about-advantages-card {
+              .main__about-advantages-card-text {
+                max-width: 211px;
+              }
+            }
+          }
+        }
+      }
+
+      .main__popular {
+        .main__popular-title {
+          font-size: 34px;
+        }
+      }
+
+      .main__feedbacks {
+        .main__feedbacks-title {
+          font-size: 34px;
+        }
+
+        .carousel {
+          .carousel__slide {
+            height: 330px;
+          }
+        }
+      }
+
+      .main__contacts {
+        .main__contacts-info {
+          .main__contacts-info-title {
+            font-size: 34px;
+          }
+        }
+      }
+    }
+  }
+}
+

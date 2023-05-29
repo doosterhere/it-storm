@@ -34,7 +34,7 @@
           <ng-template carouselSlide *ngFor="let content of bannerSlidesContent">
             <div class="carousel__slide"
                  style="background-image: url('./assets/images/pages/main/slides/slide-ellipse.png'),
-                                        url('./assets/images/pages/main/slides/{{content.image}}')">
+                                          url('./assets/images/pages/main/slides/{{content.image}}')">
               <div class="carousel__slide-pre-title">{{ content.preTitle }}</div>
               <div class="carousel__slide-title" [innerHTML]="content.title"></div>
               <div class="carousel__slide-text" *ngIf="content.text">{{ content.text }}</div>
@@ -62,7 +62,7 @@
       </div>
       <div class="main__about-info">
         <div class="main__about-title">Кто мы и чем мы занимаемся?</div>
-        <div class="main__about_text">
+        <div class="main__about-text">
           АйтиШторм — это ваш помощник №1 при решении таких вопросов, как продвижение в сети, разработка сайтов для
           бизнеса и личного бренда, сторисмейкинг, копирайтинг, маркетинг, разработка визуальной концепции и создание
           инфопродуктов. Компания была основана в 2019 году и за всё это время смогла выйти в ТОП-10 агенств,

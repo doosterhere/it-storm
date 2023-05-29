@@ -97,3 +97,12 @@
     }
   }
 }
+
+@media screen and (max-width: 424px) {
+  .card {
+
+    .card-link {
+      flex-grow: 0;
+    }
+  }
+}

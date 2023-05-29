@@ -9,14 +9,8 @@ html, body {
   font-style: normal;
   font-weight: 400;
   color: $color-text-primary;
-}
 
-.layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-
-  > .ng-star-inserted {
+  .layout > .ng-star-inserted {
     flex-grow: 1;
   }
 }
@@ -30,7 +24,7 @@ a:hover ~ svg path,
 }
 
 .container {
-  max-width: $container-width;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
@@ -194,4 +188,22 @@ input[type='checkbox'] {
   color: $color-warning;
 
   background-color: $color-white;
+}
+
+@media screen and (max-width: 1300px) {
+  .container {
+    margin: 0 30px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .container {
+    margin: 0 20px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    margin: 0 15px;
+  }
 }
