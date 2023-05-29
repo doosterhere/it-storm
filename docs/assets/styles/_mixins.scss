@@ -1,0 +1,9 @@
+@import "variables";
+
+@mixin title-lora-38 {
+  font-family: 'Lora', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 38px;
+  color: $color-lightblue;
+}
