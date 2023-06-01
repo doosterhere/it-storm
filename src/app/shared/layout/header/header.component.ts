@@ -86,9 +86,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   menuClick(): void {
-    if (this.screenWidth <= 767) {
-      this.changeMobileMenuVisibility();
-    }
+    this.changeMobileMenuVisibility();
 
     if (this.isLogged) {
       this.authServiceLogoutSubscription = this.authService.logout()
@@ -128,14 +126,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   changeMobileMenuVisibility(): void {
-    this.mobileMenuVisibility = !this.mobileMenuVisibility;
+    if (this.screenWidth <= 767) {
+      this.mobileMenuVisibility = !this.mobileMenuVisibility;
 
-    if (this.mobileMenuVisibility) {
-      this.disableScroll();
-      return;
+      if (this.mobileMenuVisibility) {
+        this.disableScroll();
+        return;
+      }
+
+      this.enableScroll();
     }
-
-    this.enableScroll();
   }
 
   disableScroll(): void {
