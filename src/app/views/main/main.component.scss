@@ -236,7 +236,7 @@
           }
         }
 
-        div:has(> .carousel__slide) {
+        div.active:has(> .carousel__slide) {
           display: flex;
           justify-content: space-evenly;
         }
@@ -395,21 +395,17 @@
 
         .carousel {
           .carousel__arrows {
-            .arrow-backward, .arrow-forward {
-              left: calc(50% - 396px - 45px);
-            }
+            a {
+              $width: 396px;
+              $margin: calc((50% - $width) / 2);
 
-            .arrow-forward {
-              left: unset;
-              right: calc(50% - 396px - 45px);
-            }
-          }
+              &.arrow-backward {
+                left: calc(50% - $width - $margin - 30px);
+              }
 
-          div:has(> .carousel__slide) {
-            justify-content: flex-start;
-
-            &:nth-child(odd) {
-              justify-content: flex-end;
+              &.arrow-forward {
+                right: calc(50% - $width - $margin - 30px);
+              }
             }
           }
         }
@@ -605,21 +601,17 @@
 
         .carousel {
           .carousel__arrows {
-            .arrow-backward, .arrow-forward {
-              left: calc(50% - 396px / 2 - 35px);
-            }
+            a {
+              $width: 396px;
+              $margin: calc((100% - $width) / 2);
 
-            .arrow-forward {
-              left: unset;
-              right: calc(50% - 396px / 2 - 35px);
-            }
-          }
+              &.arrow-backward {
+                left: calc(100% - $width - $margin - 30px);
+              }
 
-          div:has(> .carousel__slide) {
-            justify-content: center;
-
-            &:nth-child(odd) {
-              justify-content: center;
+              &.arrow-forward {
+                right: calc(100% - $width - $margin - 30px);
+              }
             }
           }
         }
